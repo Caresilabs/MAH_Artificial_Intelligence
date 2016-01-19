@@ -29,20 +29,18 @@ void Game::GameLoop() {
 				m_window->close();
 				break;
 			}
-			/* Resize the window */
-			case sf::Event::Resized:
-			{
-				/*this->view.setSize( event.size.width, event.size.height );
-				this->game->background.setPosition( this->game->window.mapPixelToCoords( sf::Vector2i( 0, 0 ) ) );
-				this->game->background.setScale(
-				float( event.size.width ) / float( this->game->background.getTexture()->getSize().x ),
-				float( event.size.height ) / float( this->game->background.getTexture()->getSize().y ) );*/
-				break;
-			}
 			case sf::Event::KeyPressed:
 			{
 				if ( event.key.code == sf::Keyboard::Escape )
 					m_window->close();
+				else
+					m_screen->HandleEvent( event );
+				break;
+			}
+			case sf::Event::Resized:
+			{
+				m_window->setView( sf::View( sf::FloatRect( 0, 0, event.size.width, event.size.height ) ) );
+				m_screen->HandleEvent( event );
 				break;
 			}
 			default:

@@ -5,7 +5,7 @@ HelloWorldScreen::HelloWorldScreen() {
 }
 
 
-const float speed = 200.f;
+float speed = 200.f;
 sf::CircleShape shape( 100.f );
 sf::Vector2f velocity( speed, speed );
 
@@ -39,5 +39,9 @@ void HelloWorldScreen::OnDraw() {
 void HelloWorldScreen::HandleEvent( const sf::Event & event ) {
 	if ( event.type == sf::Event::MouseButtonReleased )
 		game->GetWindow().close();
+
+	if ( event.type == sf::Event::KeyPressed )
+		if ( event.key.code == sf::Keyboard::W )
+			speed *= 1.2f;
 }
 

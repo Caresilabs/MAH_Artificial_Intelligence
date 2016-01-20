@@ -5,7 +5,7 @@
 
 int main() {
 
-	Game game( new HelloWorldScreen() );
+	Game game( "Hello World", 1280, 720, new HelloWorldScreen() );
 
 	game.GameLoop();
 

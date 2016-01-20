@@ -3,9 +3,11 @@
 #include "Screen.h"
 #include "Game.h"
 
-Game::Game( Screen * startScreen ) : m_window( new sf::RenderWindow() ) {
-	this->m_window->create( sf::VideoMode( 1280, 720 ), "Robotic Engine V0.1" );
+Game::Game( char* title, int width, int height, Screen* startScreen ) : m_window( new sf::RenderWindow() ) {
+	this->m_window->create( sf::VideoMode( width, height ), title );
 	this->m_window->setFramerateLimit( 60 );
+
+	m_window->setView( sf::View( sf::FloatRect( 0, 0, 16, 16 * (height / (float)width) ) ) );
 
 	SetScreen( startScreen );
 }
@@ -33,20 +35,18 @@ void Game::GameLoop() {
 			{
 				if ( event.key.code == sf::Keyboard::Escape )
 					m_window->close();
-				else
-					m_screen->HandleEvent( event );
 				break;
 			}
 			case sf::Event::Resized:
 			{
-				m_window->setView( sf::View( sf::FloatRect( 0, 0, event.size.width, event.size.height ) ) );
-				m_screen->HandleEvent( event );
+				//m_window->setView( sf::View( sf::FloatRect( 0, 0, event.size.width, event.size.height ) ) );
+				m_window->setView( sf::View( sf::FloatRect( 0, 0, 16, 16 * (event.size.height / (float)event.size.width) ) ) );
 				break;
 			}
 			default:
-				m_screen->HandleEvent( event );
 				break;
 			}
+			m_screen->OnEvent( event );
 		}
 
 		m_screen->OnUpdate( dt );
@@ -58,7 +58,7 @@ void Game::GameLoop() {
 
 void Game::SetScreen( Screen* newScreen ) {
 	if ( m_screen != nullptr )
-		delete m_screen; 
+		delete m_screen;
 
 	this->m_screen = newScreen;
 	this->m_screen->SetGame( this );
@@ -67,6 +67,15 @@ void Game::SetScreen( Screen* newScreen ) {
 
 sf::RenderWindow& Game::GetWindow() const {
 	return *m_window;
+}
+
+const sf::Vector2f & Game::GetViewSize() const {
+	return m_window->getView().getSize();
+}
+
+const sf::Vector2f Game::GetMousePosition() const {
+	auto mousePos = m_window->mapPixelToCoords( sf::Mouse::getPosition( *m_window ) );
+	return mousePos;
 }
 
 

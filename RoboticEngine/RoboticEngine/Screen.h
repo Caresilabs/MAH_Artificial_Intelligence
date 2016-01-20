@@ -14,7 +14,7 @@ public:
 
 	virtual void OnDraw() = 0;
 
-	virtual void HandleEvent( const sf::Event& event ) = 0;
+	virtual void OnEvent( const sf::Event& event ) = 0;
 
 	void SetGame( Game* game );
 

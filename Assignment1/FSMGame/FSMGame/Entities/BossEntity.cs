@@ -204,6 +204,13 @@ namespace MAH_Platformer.Entities
             Vector2.Subtract(ref playerPos, ref position, out direction);
             direction.Normalize();
 
+            float angle = (float)Math.Atan2(direction.Y, direction.X);
+
+            // Add aim error
+            angle = MathHelper.WrapAngle(angle  - (MathUtils.random() % 0.1f)/1f + 0.1f);
+
+            direction = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+
             BulletEntity bullet = new BulletEntity(Assets.GetRegion("BoulderEntity"),
                position.X, position.Y, direction.X * SHOOT_SPEED * 1.1f, direction.Y * SHOOT_SPEED * 1.1f);
             bullet.Owner = this;

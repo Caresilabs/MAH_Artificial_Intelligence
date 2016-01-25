@@ -13,13 +13,7 @@ namespace FSMGame.FSM
 
         public override Type CheckState()
         {
-            // If he's not near the player
-            if ((Entity.Level.GetPlayer().GetPosition() - Entity.GetPosition()).Length() > Block.BLOCK_SIZE * 25)
-            {
-                return typeof(BossPatrolState);
-            }
-
-            if (StateTime > 10)
+            if (StateTime > 8)
             {
                 return typeof(BossPatrolState);
             }
@@ -39,9 +33,11 @@ namespace FSMGame.FSM
         {
             shootTime += delta;
 
-            if (shootTime > 1)
+            if (shootTime > Entity.Life * 0.08)
             {
                 Entity.ShootSpray();
+                Entity.Reloading = false;
+                Entity.ShootAtPlayer();
                 shootTime = 0;
             }
         }

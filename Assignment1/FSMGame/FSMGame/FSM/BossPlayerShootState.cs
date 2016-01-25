@@ -10,7 +10,7 @@ namespace FSMGame.FSM
         public override Type CheckState()
         {
 
-            if (Entity.Life % 20 == 0)
+            if (Entity.Life % 15 == 0)
             {
                 return typeof(BossSprayShootState);
             }
@@ -21,9 +21,9 @@ namespace FSMGame.FSM
                 return typeof(BossPatrolState);
             }
 
-            if (MathUtils.random() < 0.0002f)
+            if (MathUtils.random() < 0.0008f)
             {
-                return typeof(BossCircleShootState);
+                 return typeof(BossCircleShootState);
             }
 
             return typeof(BossPlayerShootState);

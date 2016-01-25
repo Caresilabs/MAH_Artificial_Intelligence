@@ -10,6 +10,11 @@ namespace FSMGame.FSM
 
         public override Type CheckState()
         {
+            if (Entity.Life % 15 == 0)
+            {
+                return typeof(BossSprayShootState);
+            }
+
             // If he's near the player
             if ((Entity.Level.GetPlayer().GetPosition() - Entity.GetPosition()).Length() < Block.BLOCK_SIZE * 11)
             {

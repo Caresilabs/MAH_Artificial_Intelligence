@@ -2,6 +2,7 @@
 
 #include "Screen.h"
 #include "Game.h"
+#include "LuaScreen.h"
 
 Game::Game( char* title, int width, int height, Screen* startScreen ) : m_window( new sf::RenderWindow() ) {
 	this->m_window->create( sf::VideoMode( width, height ), title );
@@ -9,7 +10,11 @@ Game::Game( char* title, int width, int height, Screen* startScreen ) : m_window
 
 	m_window->setView( sf::View( sf::FloatRect( 0, 0, 16, 16 * (height / (float)width) ) ) );
 
-	SetScreen( startScreen );
+	if ( startScreen != nullptr ) {
+		SetScreen( startScreen );
+	} else {
+		SetScreen( new LuaScreen() );
+	}
 }
 
 void Game::GameLoop() {

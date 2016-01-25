@@ -6,7 +6,7 @@ class Screen;
 
 class Game {
 public:
-	Game( char* title, int width, int height, Screen* startScreen );
+	Game( char* title, int width, int height, Screen* startScreen = nullptr );
 
 	void GameLoop();
 

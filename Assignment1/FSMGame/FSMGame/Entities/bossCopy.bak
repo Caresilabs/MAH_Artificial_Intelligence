@@ -1,5 +1,4 @@
-﻿using FSMGame.FSM;
-using MAH_Platformer.Levels.Blocks;
+﻿using MAH_Platformer.Levels.Blocks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Simon.Mah.Framework;
@@ -29,25 +28,16 @@ namespace MAH_Platformer.Entities
 
         public bool Reloading { get; set; }
 
-        public FiniteStateMachine<BossEntity> FSM { get; private set; }
-
         public BossEntity(TextureRegion region, float x, float y)
             : base(region, x, y, Block.BLOCK_SIZE * 4.2f, Block.BLOCK_SIZE * 4.2f)
         {
-            this.Life = 50;
+            this.Life = 75;
             this.YSpeed = 120;
             this.StateTime = 0;
             this.Counter = 0;
             this.Collision = false;
             this.Reloading = false;
             InitAnimations();
-            InitFSM();
-        }
-
-        private void InitFSM()
-        {
-            this.FSM = new FiniteStateMachine<BossEntity>(this)
-                .Add(new BossCircleShootState());
         }
 
         private void InitAnimations()
@@ -60,17 +50,7 @@ namespace MAH_Platformer.Entities
         {
             base.Update(delta, false);
 
-            
-            // Update our legendary FSM
-            FSM.Update(delta);
-            
-
-            // Update sprite
-            velocity.Y = (float)Math.Cos(StateTime * 1) * YSpeed;
-            sprite.Effect = velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            
-            
-            //UpdateAI(delta);
+            UpdateAI(delta);
         }
 
         private void UpdateAI(float delta)
@@ -172,7 +152,7 @@ namespace MAH_Platformer.Entities
             sprite.Effect = velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
 
-        public void ShootCircle()
+        private void ShootCircle()
         {
             if (Reloading) return;
 
@@ -190,7 +170,7 @@ namespace MAH_Platformer.Entities
             Reloading = true;
         }
 
-        public void ShootAtPlayer()
+        private void ShootAtPlayer()
         {
             if (Reloading) return;
 
@@ -206,7 +186,7 @@ namespace MAH_Platformer.Entities
             Reloading = true;
         }
 
-        public void ShootSpray()
+        private void ShootSpray()
         {
             if (Reloading) return;
 

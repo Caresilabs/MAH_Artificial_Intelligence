@@ -19,7 +19,7 @@ namespace MAH_Platformer.Model
 
         private Level level;
 
-        public World(int level = 1)
+        public World(int level = 5)
         {
             this.level = new Level();
             this.level.InitLevel(level);

@@ -47,7 +47,6 @@
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Entities\PlayerEntity.cs" />
     <Compile Include="Entities\SpawnEntity.cs" />
-    <Compile Include="Game1.cs" />
     <Compile Include="HighscoreManager.cs" />
     <Compile Include="LevelIO.cs" />
     <Compile Include="Levels\Blocks\AirBlock.cs" />

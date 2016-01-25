@@ -5,9 +5,6 @@ using Microsoft.Xna.Framework.Input;
 using Simon.Mah.Framework;
 using Simon.Mah.Framework.Scene2D;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MAH_Platformer.Entities
 {

@@ -1,16 +1,11 @@
 ﻿using MAH_Platformer.Levels.Blocks;
 using MAH_Platformer.Model;
 using MAH_Platformer.View;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Simon.Mah.Framework;
 using Simon.Mah.Framework.Scene2D;
 using Simon.Mah.Framework.Tools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MAH_Platformer.Screens
 {
@@ -32,7 +27,7 @@ namespace MAH_Platformer.Screens
             this.world = new World();
             this.renderer = new WorldRenderer(this);
             this.score = START_SCORE;
-            this.lives = 3;
+            this.lives = 10;
         }
 
         public override void Update(float delta)

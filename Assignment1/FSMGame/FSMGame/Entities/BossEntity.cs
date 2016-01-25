@@ -47,7 +47,10 @@ namespace MAH_Platformer.Entities
         private void InitFSM()
         {
             this.FSM = new FiniteStateMachine<BossEntity>(this)
-                .Add(new BossCircleShootState());
+                .Add(new BossPatrolState())
+                .Add(new BossPlayerShootState())
+                .Add(new BossCircleShootState())
+                .Add(new BossSprayShootState());
         }
 
         private void InitAnimations()
@@ -63,12 +66,14 @@ namespace MAH_Platformer.Entities
             
             // Update our legendary FSM
             FSM.Update(delta);
-            
 
-            // Update sprite
+
+            // Update legacy
+            StateTime += delta;
+            Reloading = false;
             velocity.Y = (float)Math.Cos(StateTime * 1) * YSpeed;
             sprite.Effect = velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            
+
             
             //UpdateAI(delta);
         }

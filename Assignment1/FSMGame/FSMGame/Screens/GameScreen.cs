@@ -19,6 +19,7 @@ namespace MAH_Platformer.Screens
 
         private float score;
         private int lives;
+        private readonly int DEFAULT_LIFES = 10;
 
         public override void Init()
         {
@@ -27,7 +28,7 @@ namespace MAH_Platformer.Screens
             this.world = new World();
             this.renderer = new WorldRenderer(this);
             this.score = START_SCORE;
-            this.lives = 10;
+            this.lives = DEFAULT_LIFES;
         }
 
         public override void Update(float delta)
@@ -48,7 +49,7 @@ namespace MAH_Platformer.Screens
             {
                 if (InputHandler.KeyReleased(Keys.R))
                 {
-                    lives = 3;
+                    lives = DEFAULT_LIFES;
                     world.GetLevel().InitLevel(world.GetLevel().CurrentLevel);
                 }
             }

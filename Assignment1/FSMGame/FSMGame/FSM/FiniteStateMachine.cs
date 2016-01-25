@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FSMGame.FSM
 {
@@ -32,14 +31,22 @@ namespace FSMGame.FSM
                 state = states.First().Value;
                 if (state == null)
                     return;
+
+                state.Entity = entity;
+                state.Enter();
             }
 
+            // Update
+            state.StateTime += delta;
             state.Update(delta);
+
+            // Check state
             State newState = states[state.CheckState()];
             if (newState != state && newState != null)
             {
                 state.Exit();
                 newState.Entity = entity;
+                newState.StateTime = 0;
                 newState.Enter();
                 state = newState;
             }
@@ -47,19 +54,13 @@ namespace FSMGame.FSM
 
         public abstract class State
         {
-            public float StateTime { get; private set; }
+            public float StateTime { get; internal set; }
 
             public T Entity { get; internal set; }
 
-            public virtual void Enter()
-            {
-                this.StateTime = 0;
-            }
+            public abstract void Enter();
 
-            public virtual void Update(float delta)
-            {
-                this.StateTime += delta;
-            }
+            public abstract void Update(float delta);
 
             public abstract void Exit();
 

@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets.cs" />
+    <None Include="Entities\bossCopy.bak" />
     <Compile Include="Entities\BossEntity.cs" />
     <Compile Include="Entities\BoulderEntity.cs" />
     <Compile Include="Entities\BulletEntity.cs" />
@@ -47,6 +48,11 @@
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Entities\PlayerEntity.cs" />
     <Compile Include="Entities\SpawnEntity.cs" />
+    <Compile Include="FSM\BossCircleShootState.cs" />
+    <Compile Include="FSM\BossPatrolState.cs" />
+    <Compile Include="FSM\BossPlayerShootState.cs" />
+    <Compile Include="FSM\BossSprayShootState.cs" />
+    <Compile Include="FSM\FiniteStateMachine.cs" />
     <Compile Include="HighscoreManager.cs" />
     <Compile Include="LevelIO.cs" />
     <Compile Include="Levels\Blocks\AirBlock.cs" />

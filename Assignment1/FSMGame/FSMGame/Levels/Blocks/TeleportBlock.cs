@@ -24,6 +24,8 @@ namespace MAH_Platformer.Levels.Blocks
 
             if (entity is PlayerEntity)
                 ((PlayerEntity)entity).OnGrounded();
+            else
+                return;
 
             Block block;
             if (Id % 2 == 0)

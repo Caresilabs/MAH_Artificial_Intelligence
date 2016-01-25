@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FC8FBA81-74CE-4F7B-879E-9188CAD51C36}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FSMGame</RootNamespace>
+    <AssemblyName>FSMGame</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MonoGamePlatform>Windows</MonoGamePlatform>
+    <MonoGameContentBuilderExe>
+    </MonoGameContentBuilderExe>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Windows\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Windows\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Assets.cs" />
+    <Compile Include="Entities\BossEntity.cs" />
+    <Compile Include="Entities\BoulderEntity.cs" />
+    <Compile Include="Entities\BulletEntity.cs" />
+    <Compile Include="Entities\EnemyEntity.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\GameObject.cs" />
+    <Compile Include="Entities\PlayerEntity.cs" />
+    <Compile Include="Entities\SpawnEntity.cs" />
+    <Compile Include="Game1.cs" />
+    <Compile Include="HighscoreManager.cs" />
+    <Compile Include="LevelIO.cs" />
+    <Compile Include="Levels\Blocks\AirBlock.cs" />
+    <Compile Include="Levels\Blocks\Block.cs" />
+    <Compile Include="Levels\Blocks\GoalBlock.cs" />
+    <Compile Include="Levels\Blocks\GroundBlock.cs" />
+    <Compile Include="Levels\Blocks\JumpBlock.cs" />
+    <Compile Include="Levels\Blocks\LadderBlock.cs" />
+    <Compile Include="Levels\Blocks\SolidBlock.cs" />
+    <Compile Include="Levels\Blocks\SpikeBlock.cs" />
+    <Compile Include="Levels\Blocks\TeleportBlock.cs" />
+    <Compile Include="Levels\Level.cs" />
+    <Compile Include="Model\World.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\GameScreen.cs" />
+    <Compile Include="Screens\HighscoreScreen.cs" />
+    <Compile Include="Screens\IntroScreen.cs" />
+    <Compile Include="Screens\MainMenuScreen.cs" />
+    <Compile Include="Screens\WinScreen.cs" />
+    <Compile Include="Simon.Mah.Framework\Animation.cs" />
+    <Compile Include="Simon.Mah.Framework\Animations.cs" />
+    <Compile Include="Simon.Mah.Framework\FrameAnimation.cs" />
+    <Compile Include="Simon.Mah.Framework\Game.cs" />
+    <Compile Include="Simon.Mah.Framework\RegionAnimation.cs" />
+    <Compile Include="Simon.Mah.Framework\Scene2D\Actor.cs" />
+    <Compile Include="Simon.Mah.Framework\Scene2D\InputHandler.cs" />
+    <Compile Include="Simon.Mah.Framework\Scene2D\Scene.cs" />
+    <Compile Include="Simon.Mah.Framework\Scene2D\TextureRegion.cs" />
+    <Compile Include="Simon.Mah.Framework\Scene2D\UIButton.cs" />
+    <Compile Include="Simon.Mah.Framework\Scene2D\UIConfig.cs" />
+    <Compile Include="Simon.Mah.Framework\Scene2D\UIImage.cs" />
+    <Compile Include="Simon.Mah.Framework\Scene2D\UISpriteButton.cs" />
+    <Compile Include="Simon.Mah.Framework\Scene2D\UIText.cs" />
+    <Compile Include="Simon.Mah.Framework\Scene2D\UIWindow.cs" />
+    <Compile Include="Simon.Mah.Framework\Screen.cs" />
+    <Compile Include="Simon.Mah.Framework\Sprite.cs" />
+    <Compile Include="Simon.Mah.Framework\Tools\Camera2D.cs" />
+    <Compile Include="Simon.Mah.Framework\Tools\MathUtils.cs" />
+    <Compile Include="Start.cs" />
+    <Compile Include="View\WorldRenderer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Audio\pacman_beginning.wav" />
+    <Content Include="Content\Audio\pacman_chomp.wav" />
+    <Content Include="Content\Audio\pacman_death.wav" />
+    <Content Include="Content\Graphics\bg1.png" />
+    <Content Include="Content\Graphics\bg2.png" />
+    <Content Include="Content\Graphics\bg3.png" />
+    <Content Include="Content\Graphics\boss.png" />
+    <Content Include="Content\Graphics\character.png" />
+    <Content Include="Content\Graphics\crawler.png" />
+    <Content Include="Content\Graphics\items.png" />
+    <Content Include="Content\Graphics\ui.png" />
+    <None Include="Content\levels.dat" />
+    <Content Include="Documentation.txt" />
+    <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.png" />
+    <Content Include="Icon.ico" />
+    <Content Include="obj\x86\Debug\cachefile-{3549D161-E244-4400-AF84-6B9464AFA43F}-targetpath.txt" />
+    <Content Include="obj\x86\Debug\ContentPipeline-{3549D161-E244-4400-AF84-6B9464AFA43F}.xml" />
+    <Content Include="obj\x86\Debug\MAH_Platformer.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\x86\Debug\MAH_Platformer.exe" />
+    <Content Include="obj\x86\Debug\MAH_Platformer.pdb" />
+    <Content Include="obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt" />
+    <Content Include="obj\x86\Release\cachefile-{3549D161-E244-4400-AF84-6B9464AFA43F}-targetpath.txt" />
+    <Content Include="obj\x86\Release\ContentPipeline-{3549D161-E244-4400-AF84-6B9464AFA43F}.xml" />
+    <Content Include="obj\x86\Release\MAH_Platformer.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\x86\Release\MAH_Platformer.exe" />
+    <Content Include="obj\x86\Release\MAH_Platformer.pdb" />
+    <Content Include="obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt" />
+    <Content Include="Simon.Mah.Framework\bin\x86\Debug\Simon.Mah.Framework.dll" />
+    <Content Include="Simon.Mah.Framework\bin\x86\Debug\Simon.Mah.Framework.pdb" />
+    <Content Include="Simon.Mah.Framework\bin\x86\Release\Simon.Mah.Framework.dll" />
+    <Content Include="Simon.Mah.Framework\bin\x86\Release\Simon.Mah.Framework.pdb" />
+    <Content Include="Simon.Mah.Framework\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt" />
+    <Content Include="Simon.Mah.Framework\obj\x86\Debug\Simon.Mah.Framework.csproj.FileListAbsolute.txt" />
+    <Content Include="Simon.Mah.Framework\obj\x86\Debug\Simon.Mah.Framework.dll" />
+    <Content Include="Simon.Mah.Framework\obj\x86\Debug\Simon.Mah.Framework.pdb" />
+    <Content Include="Simon.Mah.Framework\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt" />
+    <Content Include="Simon.Mah.Framework\obj\x86\Release\Simon.Mah.Framework.csproj.FileListAbsolute.txt" />
+    <Content Include="Simon.Mah.Framework\obj\x86\Release\Simon.Mah.Framework.dll" />
+    <Content Include="Simon.Mah.Framework\obj\x86\Release\Simon.Mah.Framework.pdb" />
+    <Content Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Font\font.spritefont" />
+    <None Include="Content\highscore.dat" />
+    <None Include="obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\x86\Debug\MAH_Platformer.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\x86\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\x86\Release\MAH_Platformer.csprojResolveAssemblyReference.cache" />
+    <None Include="Simon.Mah.Framework\obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="Simon.Mah.Framework\obj\x86\Debug\Simon.Mah.Framework.csprojResolveAssemblyReference.cache" />
+    <None Include="Simon.Mah.Framework\obj\x86\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="Simon.Mah.Framework\obj\x86\Release\Simon.Mah.Framework.csprojResolveAssemblyReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\bin\Windows\" />
+    <Folder Include="obj\x86\Debug\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

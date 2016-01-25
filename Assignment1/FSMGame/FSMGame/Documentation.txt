@@ -1,0 +1,65 @@
+﻿How to design like a hippie rebel!
+
+Basic Entities:
+	[
+		Bob |C
+		Big bad Boss |C
+		Boulder |C
+		Little Steve |C
+		Save Point |C
+	]
+
+	*? = Low Priority
+
+Blocks (Tiles):
+	[
+		AIR |C
+		Ground |C
+		Win |C
+		Pitblock (push boulder)
+		Switchblock 
+		Loot block
+		Teleport |C
+		?Ice
+		?Ladder |C
+	]
+
+	*? = Low Priority
+
+Items:
+	[
+		Fire
+		Pistol |C
+	]
+
+	*? = Low Priority
+
+
+Map Design:
+
+	Every block -> ID
+	ID = 0-255 (or unlimited)
+	Every 8 ID is BASE ID
+	To calc BASE ID => ID % 8
+	ID used for TP, and more connections
+	
+
+Block/Entities Connections
+
+	Blocks can be triggered
+	Entities can Enter a block? one or more?
+	Entities Can Be 'USE' by player
+	Entities Can Collide with other entities
+
+
+Player Mechanics:
+
+	Move |C
+	Jump + Double/walljump |C
+	Use 
+	Climb |C
+	?Fly
+
+
+
+

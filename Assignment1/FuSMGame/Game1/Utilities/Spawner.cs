@@ -18,10 +18,14 @@ namespace Game1.Utilities
             this.interval = 7f;
             this.spawned = 0;
             world.PlayerScore = 0;
+
+            world.SpawnEnemy();
         }
 
         public void Update(float delta)
         {
+            return;
+
             timeAlive += delta;
             intervalTime += delta;
             if(intervalTime >= interval)

@@ -39,10 +39,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entitys\FastEnemy.cs" />
+    <Compile Include="Entitys\FuSMEnemy.cs" />
     <Compile Include="Entitys\Powers\BasePower.cs" />
     <Compile Include="Entitys\Powers\WeaponCase.cs" />
     <Compile Include="Entitys\SlowEnemy.cs" />
     <Compile Include="Entitys\NormalEnemy.cs" />
+    <Compile Include="FuSM\FuSMMachine.cs" />
+    <Compile Include="FuSM\FuSMState.cs" />
     <Compile Include="Hud\Aim.cs" />
     <Compile Include="Bullets\Bullet.cs" />
     <Compile Include="Bullets\BulletManager.cs" />

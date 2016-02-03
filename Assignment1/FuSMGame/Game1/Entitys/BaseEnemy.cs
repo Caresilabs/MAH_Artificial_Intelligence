@@ -9,7 +9,8 @@ namespace Game1.Entitys
     public class BaseEnemy : Entity
     {
         public static readonly float ENEMY_STOP_RANGE = Tile.SIZE * 2.1f;
-        private Vector2 target;
+
+        protected Vector2 target;
 
         public BaseEnemy(Texture2D texture, Vector2 position, float speed, int size, SimulationWorld world) : base(texture, position, speed, size, world)
         {
@@ -35,8 +36,11 @@ namespace Game1.Entitys
         public override void Update(float delta)
         {
             base.Update(delta);
+            UpdateAI(delta);
+        }
 
-
+        protected virtual void UpdateAI(float delta)
+        {
             if (world.RayCast(this, world.Player))
             {
                 Face(world.Player.GetPosition());
@@ -69,7 +73,7 @@ namespace Game1.Entitys
             }
         }
 
-        private void RebuildPath()
+        protected void RebuildPath()
         {
             var path = world.PathFinder.Pathfind(((position) / Tile.SIZE).ToPoint(), ((world.Player.GetPosition()) / Tile.SIZE).ToPoint()); //- new Vector2(Tile.SIZE/2f) , new Vector2(Tile.SIZE / 2f)
             if (path.Count > 1)

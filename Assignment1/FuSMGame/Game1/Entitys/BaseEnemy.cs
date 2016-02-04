@@ -41,12 +41,12 @@ namespace Game1.Entitys
 
         protected virtual void UpdateAI(float delta)
         {
-            if (world.RayCast(this, world.Player))
+            if (World.RayCast(this, World.Player))
             {
-                Face(world.Player.GetPosition());
+                Face(World.Player.GetPosition());
                 Fire();
 
-                float dst = (world.Player.GetPosition() - position).Length();
+                float dst = (World.Player.GetPosition() - position).Length();
                 if (dst < ENEMY_STOP_RANGE)
                 {
                     target = Vector2.Zero;
@@ -75,7 +75,7 @@ namespace Game1.Entitys
 
         protected void RebuildPath()
         {
-            var path = world.PathFinder.Pathfind(((position) / Tile.SIZE).ToPoint(), ((world.Player.GetPosition()) / Tile.SIZE).ToPoint()); //- new Vector2(Tile.SIZE/2f) , new Vector2(Tile.SIZE / 2f)
+            var path = World.PathFinder.Pathfind(((position) / Tile.SIZE).ToPoint(), ((World.Player.GetPosition()) / Tile.SIZE).ToPoint()); //- new Vector2(Tile.SIZE/2f) , new Vector2(Tile.SIZE / 2f)
             if (path.Count > 1)
                 target = path[1].ToVector2() * Tile.SIZE + new Vector2(Tile.SIZE / 2f);
         }

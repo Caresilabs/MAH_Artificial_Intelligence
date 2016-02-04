@@ -5,7 +5,7 @@ namespace Patrik.GameProject
 {
     public class Tile : GameObject
     {
-        public static int SIZE = 64;
+        public const int SIZE = 64;
 
         ETileType type;
 

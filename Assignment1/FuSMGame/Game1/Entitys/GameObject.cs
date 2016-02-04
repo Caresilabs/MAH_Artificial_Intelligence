@@ -6,6 +6,8 @@ namespace Patrik.GameProject
 {
     public class GameObject
     {
+        public Vector2 Position { get { return position; } }
+
         protected float rotation, scale;
         protected Vector2 direction, position, originHit, originDraw;
         protected Rectangle recHit, recDraw;

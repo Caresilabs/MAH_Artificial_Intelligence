@@ -11,16 +11,19 @@ namespace Patrik.GameProject
 {
     public class Entity : GameObject
     {
-        protected SimulationWorld world;
+        public SimulationWorld World { get; protected set; }
+
+        public float Speed { get; set; }
+
         protected Weapon weapon;
-        protected float speed, health, maxHealth;
+        protected float health, maxHealth;
 
         public bool Dead { get; set; }
 
         public Entity(Texture2D texture, Vector2 position, float speed, int size, SimulationWorld world) : base(texture, position, size, new Rectangle(0, 0, 64, 64))
         {
-            this.speed = speed;
-            this.world = world;
+            this.Speed = speed;
+            this.World = world;
             this.weapon = new Pistol(world, this);
         }
 
@@ -71,10 +74,10 @@ namespace Patrik.GameProject
 
         public void VerticalMove(float delta)
         {
-            position.Y += direction.Y * speed * delta;
+            position.Y += direction.Y * Speed * delta;
             recHit = new Rectangle((int)(position.X - originHit.X), (int)(position.Y - originHit.Y), recHit.Width, recHit.Height);
 
-            var collide = world.GetColliders(this).Where(x => !(x is Bullet)).FirstOrDefault();
+            var collide = World.GetColliders(this).Where(x => !(x is Bullet)).FirstOrDefault();
 
             if (collide == null)
                 return;
@@ -89,10 +92,10 @@ namespace Patrik.GameProject
 
         public void HorizontalMove(float delta)
         {
-            position.X += direction.X * speed * delta;
+            position.X += direction.X * Speed * delta;
             recHit = new Rectangle((int)(position.X - originHit.X), (int)(position.Y - originHit.Y), recHit.Width, recHit.Height);
 
-            var collide = world.GetColliders(this).Where(x => !(x is Bullet)).FirstOrDefault();
+            var collide = World.GetColliders(this).Where(x => !(x is Bullet)).FirstOrDefault();
 
             if (collide == null)
                 return;
@@ -109,6 +112,7 @@ namespace Patrik.GameProject
         {
             rotation = (float)Math.Atan2(target.Y - position.Y, target.X - position.X);
         }
+
         public void Damage(float damage)
         {
             health -= damage;

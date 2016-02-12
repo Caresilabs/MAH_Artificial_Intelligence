@@ -7,6 +7,7 @@ using Game1.Datastructures;
 using System.Linq;
 using System;
 using Game1.Scene;
+using Microsoft.Xna.Framework.Input;
 
 namespace Patrik.GameProject
 {
@@ -20,6 +21,7 @@ namespace Patrik.GameProject
         {
             this.world = new SimulationWorld(input);
             this.hud = new Hud(camera, hudCamera, input, world);
+            this.world.Hud = hud;
         }
 
       
@@ -36,6 +38,8 @@ namespace Patrik.GameProject
         private void UpdateCamera()
         {
             camera.Lerp(world.Player.GetPosition());
+
+            camera.Scale = new Vector2(1 + Mouse.GetState().ScrollWheelValue * 0.0001f);
         }
 
         public override void Draw(SpriteBatch batch)

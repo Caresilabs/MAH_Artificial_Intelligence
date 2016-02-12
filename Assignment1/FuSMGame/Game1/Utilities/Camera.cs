@@ -18,15 +18,16 @@ namespace Patrik.GameProject
         {
             this.viewPort = viewPort;
             this.position = position;
+            this.Scale = new Vector2(1,1);
         }
 
         public void Update(GraphicsDeviceManager graphics)
         {
             int width = graphics.GraphicsDevice.Viewport.Width;
             int height = graphics.GraphicsDevice.Viewport.Height;
-            zoomX = ((float)width / viewPort.Width);
-            zoomY = ((float)height / viewPort.Height);
-            
+            zoomX = ((float)width / viewPort.Width) * Scale.X;
+            zoomY = ((float)height / viewPort.Height) * Scale.Y;
+
             transform = Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0)) *
                         Matrix.CreateRotationZ(rotation) *
                         Matrix.CreateScale(zoomX, zoomY, 1) *
@@ -73,5 +74,8 @@ namespace Patrik.GameProject
             get { return zoomY; }
             set { zoomY = value; }
         }
+
+        public Vector2 Scale { get; set; }
+
     }
 }

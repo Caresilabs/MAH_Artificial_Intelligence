@@ -6,9 +6,11 @@ namespace Game1.FuSM
 {
     public class FuSMMachine<T>
     {
+        private const bool NORMALIZE_LEVELS = true;
+
         private T Entity { get; set; }
 
-        private Dictionary<Type, FuSMState> States { get; set; }
+        public Dictionary<Type, FuSMState> States { get; private set; }
 
         private Dictionary<Type, FuSMState> ActivatedStates { get; set; }
 
@@ -54,7 +56,7 @@ namespace Game1.FuSM
                 foreach (var pair in ActivatedStates)
                 {
                     // Normalize the activation level if sum is larger than 1.
-                    if (sum > 1)
+                    if (NORMALIZE_LEVELS && sum > 1)
                     {
                         pair.Value.ActivationLevel = (pair.Value.ActivationLevel) / sum;
                     }
@@ -84,6 +86,7 @@ namespace Game1.FuSM
         {
             state.Entity = Entity;
             state.Machine = this;
+            state.Init();
             States.Add(state.GetType(), state);
             return this;
         }

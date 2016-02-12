@@ -48,6 +48,7 @@
     <Compile Include="FuSM\AttackState.cs" />
     <Compile Include="FuSM\ForewarnState.cs" />
     <Compile Include="FuSM\FuSMMachine.cs" />
+    <Compile Include="FuSM\PatrolState.cs" />
     <Compile Include="Hud\Aim.cs" />
     <Compile Include="Bullets\Bullet.cs" />
     <Compile Include="Bullets\BulletManager.cs" />

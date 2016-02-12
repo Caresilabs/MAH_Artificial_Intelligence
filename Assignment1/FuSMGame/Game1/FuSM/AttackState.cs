@@ -8,14 +8,15 @@ namespace Game1.FuSM
 
         public override float CalculateActivation()
         {
-            if (Machine.GetPerception<bool>("CanSeePlayer"))
-            {
-                ActivationLevel = 0.5f;
+            float dst = Machine.GetPerception<float>("DistanceToPlayer");
 
+            if (!Machine.GetPerception<bool>("CanSeePlayer") || dst > FuSMEnemy.SHOOT_DISTANCE)
+            {
+                ActivationLevel = 0;
             }
             else
             {
-                ActivationLevel = 0;
+                ActivationLevel = (FuSMEnemy.SHOOT_DISTANCE - dst) / FuSMEnemy.SHOOT_DISTANCE;
             }
 
             return ActivationLevel;
@@ -39,7 +40,7 @@ namespace Game1.FuSM
             time += delta;
             Entity.Face(Entity.World.Player.Position);
 
-            if (time > 3.5f - (ActivationLevel * 3.5f))
+            if (time > 3.0f - (ActivationLevel * 3.0f))
             {
                 time = 0;
                 Entity.Fire();

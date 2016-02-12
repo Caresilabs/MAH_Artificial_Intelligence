@@ -69,13 +69,13 @@ namespace Game1.Entitys
             }
             else
             {
-                RebuildPath();
+                RebuildPath(World.Player.Position);
             }
         }
 
-        protected void RebuildPath()
-        {
-            var path = World.PathFinder.Pathfind(((position) / Tile.SIZE).ToPoint(), ((World.Player.GetPosition()) / Tile.SIZE).ToPoint()); //- new Vector2(Tile.SIZE/2f) , new Vector2(Tile.SIZE / 2f)
+        protected void RebuildPath(Vector2 trgt)
+        {//World.Player.GetPosition()
+            var path = World.PathFinder.Pathfind(((position) / Tile.SIZE).ToPoint(), ((trgt) / Tile.SIZE).ToPoint()); //- new Vector2(Tile.SIZE/2f) , new Vector2(Tile.SIZE / 2f)
             if (path.Count > 1)
                 target = path[1].ToVector2() * Tile.SIZE + new Vector2(Tile.SIZE / 2f);
         }

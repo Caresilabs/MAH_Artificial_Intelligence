@@ -32,6 +32,7 @@ namespace Game1.Scene
         private Inputs input;
 
         public int PlayerScore { get; set; }
+        public Patrik.GameProject.Hud Hud { get; set; }
 
         public SimulationWorld(Inputs input)
         {

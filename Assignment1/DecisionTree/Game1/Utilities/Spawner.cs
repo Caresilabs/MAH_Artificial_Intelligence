@@ -24,6 +24,9 @@ namespace Game1.Utilities
 
         public void Update(float delta)
         {
+            if (world.Enemies.Count == 0)
+                world.SpawnEnemy();
+
             return;
 
             timeAlive += delta;

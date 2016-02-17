@@ -12,7 +12,7 @@ namespace Patrik.GameProject
         public Pistol(SimulationWorld world, Entity owner) : base(world, owner)
         {
             cooldown = 0.4f;
-            damage = 50f;
+            damage = 15f;
         }
 
         public override bool Fire()

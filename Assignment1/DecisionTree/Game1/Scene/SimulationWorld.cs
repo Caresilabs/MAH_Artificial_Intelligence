@@ -86,7 +86,7 @@ namespace Game1.Scene
             //        break;
             //}
 
-            e = new FuSMEnemy(new Vector2(tile.GetRecHit().X + Tile.SIZE / 2f, tile.GetRecHit().Y + Tile.SIZE / 2f), this);
+            e = new DecisionEnemy(new Vector2(tile.GetRecHit().X + Tile.SIZE / 2f, tile.GetRecHit().Y + Tile.SIZE / 2f), this);
 
             Enemies.Add(e);
         }
@@ -116,7 +116,7 @@ namespace Game1.Scene
             UpdatePowers(delta);
         }
 
-        public bool RayCast(GameObject origin, GameObject target)
+        public bool RayCast(GameObject origin, GameObject target, params GameObject[] exclude)
         {
             var segment = new Segment(origin.GetPosition(), target.GetPosition());
 
@@ -133,7 +133,7 @@ namespace Game1.Scene
             }
 
             // Should enemies block raycast?
-            foreach (var enemy in Enemies.Where(x => x != origin))
+            foreach (var enemy in Enemies.Where(x => x != origin && exclude.Contains(x)))
             {
                 if (segment.Collide(enemy.GetHitRectangle()))
                     return false;

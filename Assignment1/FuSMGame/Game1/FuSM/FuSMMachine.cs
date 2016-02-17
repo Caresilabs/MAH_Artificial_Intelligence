@@ -6,14 +6,26 @@ namespace Game1.FuSM
 {
     public class FuSMMachine<T>
     {
+        /// <summary>
+        /// Should It normalize activation levels?
+        /// </summary>
         private const bool NORMALIZE_LEVELS = true;
 
         private T Entity { get; set; }
 
+        /// <summary>
+        /// All of the states
+        /// </summary>
         public Dictionary<Type, FuSMState> States { get; private set; }
-
+        
+        /// <summary>
+        /// All Activated states
+        /// </summary>
         private Dictionary<Type, FuSMState> ActivatedStates { get; set; }
 
+        /// <summary>
+        /// Perception map
+        /// </summary>
         private Dictionary<string, object> Perceptions { get; set; }
 
         public FuSMMachine(T entity)
@@ -41,14 +53,14 @@ namespace Game1.FuSM
                     nonActiveStates.Add(pair.Key, pair.Value);
             }
 
-            //Exit all non active states for cleanup
+            // Exit all non active states for cleanup
             if (nonActiveStates.Count != 0)
             {
                 foreach (var pair in nonActiveStates)
                     pair.Value.Exit();
             }
 
-            //Update all activated states
+            // Update all activated states
             if (ActivatedStates.Count != 0)
             {
                 float sum = ActivatedStates.Sum(x => x.Value.ActivationLevel);

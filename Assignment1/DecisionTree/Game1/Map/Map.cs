@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System;
 
 namespace Patrik.GameProject
 {
@@ -43,7 +44,7 @@ namespace Patrik.GameProject
 
 
 
-                    if (tileMap[posX, posY].GetTileType() != ETileType.WALL && tileMap[posX, posY].GetTileType() != ETileType.CRATE)
+                    if (tileMap[posX, posY].GetTileType() != ETileType.WALL && tileMap[posX, posY].GetTileType() != ETileType.CRATE && tileMap[posX, posY].GetTileType() != ETileType.SPAWN)
                         continue;
 
                     if (tileMap[posX, posY].GetRecHit().Intersects(rectangle))
@@ -52,6 +53,14 @@ namespace Patrik.GameProject
             }
 
             return colliders;
+        }
+
+        public Tile GetTile(int x, int y)
+        {
+            x = MathHelper.Clamp(x, 0, GetWidth() - 1);
+            y = MathHelper.Clamp(x, 0, GetHeight() - 1);
+
+            return tileMap[x, y];
         }
 
         public Tile[,] getTileMap() { return tileMap; }

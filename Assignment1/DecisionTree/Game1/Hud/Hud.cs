@@ -110,18 +110,18 @@ namespace Patrik.GameProject
 
             DrawText(batch);
 
-            FuSMEnemy enemy = world.Enemies.FirstOrDefault() != null ? world.Enemies.First() as FuSMEnemy : null;
-            if (enemy != null)
-            {
-                StringBuilder builder = new StringBuilder();
-                builder.AppendLine("States");
-                foreach (var state in enemy.Machine.States)
-                {
-                    builder.AppendLine(state.Key.Name + ": " + Math.Round(state.Value.ActivationLevel, 3));
-                }
-                builder.AppendLine("Sum: " + Math.Round( enemy.Machine.States.Sum(x => x.Value.ActivationLevel), 2));
-                batch.DrawString(Globals.font, builder, new Vector2(-620, -350), Color.White, 0, new Vector2(0, 0), 1.2f, SpriteEffects.None, 1f);
-            }
+            DecisionEnemy enemy = world.Enemies.FirstOrDefault() != null ? world.Enemies.First() as DecisionEnemy : null;
+            //if (enemy != null)
+            //{
+            //    StringBuilder builder = new StringBuilder();
+            //    builder.AppendLine("States");
+            //    foreach (var state in enemy.Machine.States)
+            //    {
+            //        builder.AppendLine(state.Key.Name + ": " + Math.Round(state.Value.ActivationLevel, 3));
+            //    }
+            //    builder.AppendLine("Sum: " + Math.Round( enemy.Machine.States.Sum(x => x.Value.ActivationLevel), 2));
+            //    batch.DrawString(Globals.font, builder, new Vector2(-620, -350), Color.White, 0, new Vector2(0, 0), 1.2f, SpriteEffects.None, 1f);
+            //}
         }
 
         private void DrawText(SpriteBatch batch)

@@ -18,6 +18,7 @@ namespace Game1.FuSM
             {
                 ActivationLevel = 0;
                 lastTimeSeenPlayer = DateTime.Now;
+                // Update Patrol path
                 targets[0] = Entity.World.Player.Position;
                 targets[1] = Entity.Position;
             }

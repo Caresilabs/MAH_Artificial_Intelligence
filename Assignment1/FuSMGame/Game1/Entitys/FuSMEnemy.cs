@@ -48,6 +48,7 @@ namespace Game1.Entitys
 
             Machine.Update(delta);
 
+            // Look forward
             if (!Machine.GetPerception<bool>("CanSeePlayer"))
             {
                 rotation = (float)Math.Atan2(direction.Y, direction.X);

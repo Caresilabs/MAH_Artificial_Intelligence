@@ -21,9 +21,9 @@ namespace Patrik.GameProject
             PosAim = position;
 
             color = Color.Gold;
-            this.health = 1000;
-            this.maxHealth = 1000;
-            this.weapon = new Rifle(world, this);
+            this.Health = 1000;
+            this.MaxHealth = 1000;
+            this.weapon = new Pistol(world, this);
         }
 
         public override void Update(float delta)
@@ -51,7 +51,7 @@ namespace Patrik.GameProject
 
         public void HealFullHealth()
         {
-            health = maxHealth;
+            Health = MaxHealth;
             Dead = false;
             Damage(0);
         }

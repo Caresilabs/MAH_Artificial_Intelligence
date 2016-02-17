@@ -16,7 +16,9 @@ namespace Patrik.GameProject
         public float Speed { get; set; }
 
         protected Weapon weapon;
-        protected float health, maxHealth;
+
+        public float Health { get; protected set; }
+        public float MaxHealth { get; protected set; }
 
         public bool Dead { get; set; }
 
@@ -63,6 +65,14 @@ namespace Patrik.GameProject
         {
             if (other is Entity)
                 return true;
+
+            if (other is Tile)
+            {
+                if(((Tile)other).GetTileType() == ETileType.SPAWN) {
+                    ResetHealth();
+                    return false;
+                }
+            }
 
             if (other is Bullet)
             {
@@ -113,15 +123,22 @@ namespace Patrik.GameProject
             rotation = (float)Math.Atan2(target.Y - position.Y, target.X - position.X);
         }
 
-        public void Damage(float damage)
+        public virtual void Damage(float damage)
         {
-            health -= damage;
-            if (health <= 0)
+            Health -= damage;
+            if (Health <= 0)
             {
-                health = 0;
+                Health = 0;
                 Dead = true;
             }
-            int frame = 9-(int)(9 * health / maxHealth);
+            int frame = 9-(int)(9 * Health / MaxHealth);
+            recDraw = new Rectangle(64 * frame, 0, 64, 64);
+        }
+
+        public void ResetHealth()
+        {
+            this.Health = MaxHealth;
+            int frame = 9 - (int)(9 * Health / MaxHealth);
             recDraw = new Rectangle(64 * frame, 0, 64, 64);
         }
     }

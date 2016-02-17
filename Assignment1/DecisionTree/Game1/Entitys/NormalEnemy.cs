@@ -8,8 +8,8 @@ namespace Game1.Entitys
     {
         public NormalEnemy(Vector2 position, SimulationWorld world) : base(Globals.player, position, 100, 40, world)
         {
-            health = 150;
-            maxHealth = 150;
+            Health = 150;
+            MaxHealth = 150;
             color = Color.DarkOliveGreen;
         }
 

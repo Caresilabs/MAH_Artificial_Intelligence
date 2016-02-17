@@ -20,7 +20,6 @@ namespace Game1.FuSM
                 ActivationLevel =  1 - ((dst - FuSMEnemy.FOREWARN_STOP_DISTANCE) / (FuSMEnemy.FOREWARN_DISTANCE - FuSMEnemy.FOREWARN_STOP_DISTANCE));
             }
 
-
             return ActivationLevel;
         }
 

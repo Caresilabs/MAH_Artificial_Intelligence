@@ -8,8 +8,8 @@ namespace Game1.Entitys
     {
         public SlowEnemy(Vector2 position, SimulationWorld world) : base(Globals.player, position, 60, 50, world)
         {
-            health = 250;
-            maxHealth = 250;
+            Health = 250;
+            MaxHealth = 250;
             color = Color.Red;
         }
 

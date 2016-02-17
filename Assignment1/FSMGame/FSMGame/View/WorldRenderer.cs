@@ -1,4 +1,5 @@
-﻿using MAH_Platformer.Levels;
+﻿using MAH_Platformer.Entities;
+using MAH_Platformer.Levels;
 using MAH_Platformer.Levels.Blocks;
 using MAH_Platformer.Model;
 using MAH_Platformer.Screens;
@@ -57,6 +58,17 @@ namespace MAH_Platformer.View
             }
 
             DrawUI(batch);
+
+            Entity ent = world.GetLevel().GetEntities().SingleOrDefault(x => x is BossEntity);
+            BossEntity enemy = ent as BossEntity;
+            if (enemy != null)
+            {
+                StringBuilder builder = new StringBuilder();
+                builder.AppendLine("States");
+                var state = enemy.FSM.GetCurrentState();
+                if (state != null)
+                    batch.DrawString(Assets.font, "Current state: " + state.GetType(), new Vector2(camera.GetPosition().X + 10, camera.GetPosition().Y + camera.GetHeight() - 40), Color.White, 0, Vector2.Zero, .5f, SpriteEffects.None, 0);
+            }
 
             batch.End();
         }

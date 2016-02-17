@@ -52,6 +52,11 @@ namespace FSMGame.FSM
             }
         }
 
+        public State GetCurrentState()
+        {
+            return state;
+        }
+
         public abstract class State
         {
             public float StateTime { get; internal set; }

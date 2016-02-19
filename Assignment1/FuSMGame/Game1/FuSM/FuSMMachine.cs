@@ -9,7 +9,7 @@ namespace Game1.FuSM
         /// <summary>
         /// Should It normalize activation levels?
         /// </summary>
-        private const bool NORMALIZE_LEVELS = true;
+        private const bool NORMALIZE_LEVELS = false;
 
         private T Entity { get; set; }
 

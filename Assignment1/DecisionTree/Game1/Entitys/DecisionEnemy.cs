@@ -164,7 +164,8 @@ namespace Game1.Entitys
                     }
                 }
             }
-            UpdateAIMovement(cover.Position);
+            if (cover != null)
+                UpdateAIMovement(cover.Position);
         }
 
         /// <summary>

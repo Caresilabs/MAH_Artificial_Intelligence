@@ -3,10 +3,11 @@
 #include <RSprite.h>
 
 class GAScreen;
+class Bullet;
 
 class Unit {
 public:
-	Unit(GAScreen* world, int id, sf::Texture& texture);
+	Unit( GAScreen* world, int id, sf::Texture& texture );
 
 	void	Set( float health, float speed, float firerate );
 
@@ -16,7 +17,11 @@ public:
 
 	void	UpdateMovement( float delta );
 
+	void	Damage( Bullet* bullet );
+
 	void	Reset();
+
+	void	Won();
 
 	float	FitnessFunction() const;
 
@@ -27,15 +32,22 @@ public:
 	const RSprite& GetSprite() const;
 
 private:
+	static const int BULLET_SPEED = 50;
+
 	RSprite		Sprite;
 
 	GAScreen*	World;
 
+	sf::Vector2f Velocity;
+
+	// info
+	int			Id;
+	bool		Dead;
 	float		SessionTime;
+	sf::Clock	FirerateClock;
+	int			Wins;
 
-	int		Id;
-
-	bool	Dead;
+	// Attributes
 
 	float	Speed;
 	float	Strength;

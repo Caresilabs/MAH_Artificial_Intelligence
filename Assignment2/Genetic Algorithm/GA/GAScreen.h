@@ -2,6 +2,7 @@
 
 #include <Screen.h>
 #include "Unit.h"
+#include "Bullet.h"
 
 class GAScreen : public Screen {
 public:
@@ -13,9 +14,11 @@ public:
 	virtual void OnDraw() override;
 	virtual void OnEvent( const sf::Event & event ) override;
 
-	void SpawnBullet( Unit& owner, sf::Vector2f direction, float speed, float error );
+	void SpawnBullet( Unit& owner, sf::Vector2f direction, float speed, float error, float strength );
 
-	int GetRandomNumber( int min, int max, bool seed );
+	void ClearBullets();
+
+	int GetRandomNumber( int min, int max, bool seed = false);
 
 	~GAScreen();
 
@@ -30,14 +33,16 @@ private:
 	GAState				State;
 
 	std::vector<Unit*>	Population;
-	std::vector<Unit*>	Bullets;
+	std::vector<Bullet*>Bullets;
 
 	int					UnitIndex1;
 	int					UnitIndex2;
 
 	float				UpdatesPerFrame;
 
+	// Assets
 	sf::Texture			UnitTexture;
-	sf::Texture			Tex;
+	sf::Texture			BulletTexture;
+	sf::Font			Font;
 };
 

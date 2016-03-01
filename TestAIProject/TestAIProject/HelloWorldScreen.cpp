@@ -2,6 +2,7 @@
 
 #include <RSprite.h>
 #include <vector>
+#include <iostream>
 
 HelloWorldScreen::HelloWorldScreen() {
 }
@@ -27,6 +28,9 @@ void HelloWorldScreen::OnCreate() {
 	shape->setOrigin( sf::Vector2f( shape->getSize().x / 2.f, shape->getSize().y / 2.f ) );
 
 	shapes.push_back(shape);
+
+	int h;
+	std::cout << "hej";
 }
 
 sf::Clock colorClock;

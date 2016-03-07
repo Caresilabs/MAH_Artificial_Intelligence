@@ -20,7 +20,7 @@ void Unit::Set( float health, float speed, float firerate ) {
 	Firerate = firerate;
 	FireError = Firerate * 5;
 
-	Sprite.setPosition( 8 + cos( Id )*5.f, 5 + sin( Id )*5.f );
+	Sprite.setPosition( 8 + cos( Id )*5.f, 5 + sin( Id )*3.f );
 	Wins = 0;
 	TotalTimeAlive = 0;
 }

@@ -43,7 +43,7 @@ private:
 	// info
 	int			Id;
 	bool		Dead;
-	float		SessionTime;
+	float		TotalTimeAlive;
 	sf::Clock	FirerateClock;
 	int			Wins;
 

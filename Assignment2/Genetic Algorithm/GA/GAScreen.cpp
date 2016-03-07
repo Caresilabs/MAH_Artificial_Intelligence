@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 
-GAScreen::GAScreen() : UpdatesPerFrame( 1 ), State( GAState::PRE ), Population( POPULATION_SIZE ) {
+GAScreen::GAScreen() : State( GAState::PRE ), Population( POPULATION_SIZE ) {
 }
 
 
@@ -24,7 +24,7 @@ void GAScreen::OnCreate() {
 void GAScreen::InitRandomPopulation() {
 	for ( size_t i = 0; i < POPULATION_SIZE; i++ ) {
 		Population[i] = new Unit( this, i, UnitTexture );
-		Population[i]->Set( GetRandomNumber( 20, 200 ), 100, 1 );
+		Population[i]->Set( GetRandomNumber( 20, 200 ), GetRandomNumber( 50, 150 ), GetRandomNumber( 1, 5 ) );
 	}
 	UnitIndex1 = 0;
 	UnitIndex2 = 1;
@@ -32,7 +32,7 @@ void GAScreen::InitRandomPopulation() {
 
 
 void GAScreen::OnUpdate( float delta ) {
-	for ( size_t i = 0; i < UpdatesPerFrame; i++ ) {
+	for ( size_t i = 0; i < UPDATES_PER_FRAME; i++ ) {
 
 		switch ( State ) {
 		case GAState::PRE:
@@ -118,7 +118,7 @@ void GAScreen::OnDraw() {
 
 		// Draw bullets
 		for each (auto bullet in Bullets) {
-			game->GetWindow().draw( bullet->GetSprite());
+			game->GetWindow().draw( bullet->GetSprite() );
 		}
 	}
 
@@ -127,7 +127,7 @@ void GAScreen::OnDraw() {
 	// select the font
 	text.setFont( Font ); // font is a sf::Font
 
-	text.setString( "Hello world" );
+	text.setString( std::to_string( UnitIndex1 ) + " V.S " + std::to_string( UnitIndex2 ) );
 	text.setCharacterSize( 24 );
 	text.setScale( 0.01f, 0.01f );
 
@@ -140,10 +140,10 @@ void GAScreen::OnEvent( const sf::Event & event ) {
 
 void GAScreen::SpawnBullet( Unit& owner, sf::Vector2f direction, float speed, float error, float strength ) {
 	float angle = atan2( direction.y, direction.x );
-	angle += GetRandomNumber(0, error, false) - (error*0.5f);
+	angle += GetRandomNumber( 0, error, false ) - (error*0.5f);
 	Bullet* bullet = new Bullet( &owner, BulletTexture, sf::Vector2f( cos( angle ), sin( angle ) ), speed, strength );
 
-	Bullets.push_back(bullet);
+	Bullets.push_back( bullet );
 }
 
 void GAScreen::ClearBullets() {

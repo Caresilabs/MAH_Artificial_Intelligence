@@ -29,6 +29,7 @@ public:
 private:
 	static const int	POPULATION_SIZE = 10;
 	static const int	GENERATION_COUNT = 1000;
+	static const int	UPDATES_PER_FRAME = 1;
 
 	GAState				State;
 
@@ -37,8 +38,7 @@ private:
 
 	int					UnitIndex1;
 	int					UnitIndex2;
-
-	float				UpdatesPerFrame;
+	
 
 	// Assets
 	sf::Texture			UnitTexture;

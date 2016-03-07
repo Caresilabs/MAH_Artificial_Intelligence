@@ -4,11 +4,15 @@ Bullet::Bullet( Unit* owner, sf::Texture texture, sf::Vector2f direction, float 
 	: Owner( owner ), Direction( direction ), Speed( speed ), Strength( strength ) {
 	Sprite.setTexture( texture );
 	Sprite.setPosition( owner->GetSprite().getPosition() );
-	Sprite.SetSize( .2f, 0.2f, true );
+	Sprite.SetSize( .1f, 0.1f, true );
 }
 
 void Bullet::Update( float delta ) {
 	Sprite.setPosition( Sprite.getPosition() + (Direction*Speed*delta) );
+}
+
+void Bullet::SetColor( const sf::Color & color ) {
+	Sprite.setColor( color );
 }
 
 float Bullet::GetStrength() const {
@@ -21,4 +25,8 @@ Unit* Bullet::GetOwner() const {
 
 const RSprite & Bullet::GetSprite() const {
 	return Sprite;
+}
+
+const sf::Vector2f & Bullet::GetDirection() const {
+	return Direction;
 }

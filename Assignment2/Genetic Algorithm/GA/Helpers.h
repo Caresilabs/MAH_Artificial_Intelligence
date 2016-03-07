@@ -1,12 +1,19 @@
 #pragma once
 
 #include <SFML/System/Vector2.hpp>
-#include <math.h>
 
-sf::Vector2f Normalize( const sf::Vector2f& source ) {
-	float length = sqrt( (source.x * source.x) + (source.y * source.y) );
-	if ( length != 0 )
-		return sf::Vector2f( source.x / length, source.y / length );
-	else
-		return source;
-}
+sf::Vector2f		Normalize( const sf::Vector2f& source );
+
+float				Length( const sf::Vector2f& source );
+
+float				Dot( const sf::Vector2f& a, const sf::Vector2f& b );
+
+float				Det( const sf::Vector2f& a, const sf::Vector2f& b );
+
+float				Clamp( float n, float lower, float upper );
+
+float				NormalizeAngle( float x );
+
+int					GetRandomNumber( int min, int max, bool seed = false );
+
+float				GetRandomNumber( float min, float max, bool seed = false );

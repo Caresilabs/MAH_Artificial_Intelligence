@@ -7,17 +7,21 @@ class Bullet {
 public:
 	Bullet(Unit* owner, sf::Texture texture, sf::Vector2f direction, float speed, float strength);
 
-	void Update( float delta );
+	void					Update( float delta );
+	
+	void					SetColor( const sf::Color& color );
 
-	float GetStrength() const;
+	float					GetStrength() const;
 
-	Unit* GetOwner() const;
+	Unit*					GetOwner() const;
 
-	const RSprite& GetSprite() const;
+	const RSprite&			GetSprite() const;
+
+	const sf::Vector2f&		GetDirection() const;
 
 private:
 
-	Unit*		Owner;
+	Unit*			Owner;
 
 	RSprite			Sprite;
 

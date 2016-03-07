@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "LuaScreen.h"
 
-Game::Game( char* title, int width, int height, Screen* startScreen ) : m_window( new sf::RenderWindow() ) {
+Game::Game( char* title, int width, int height, Screen* startScreen ) : m_window( new sf::RenderWindow() ), UpdatesPerFrame(1) {
 	this->m_window->create( sf::VideoMode( width, height ), title );
 	this->m_window->setFramerateLimit( 60 );
 
@@ -54,10 +54,13 @@ void Game::GameLoop() {
 			m_screen->OnEvent( event );
 		}
 
-		m_screen->OnUpdate( dt );
-		this->m_window->clear( sf::Color::Black );
-		m_screen->OnDraw();
-		this->m_window->display();
+		for ( int i = 0; i < UpdatesPerFrame; i++ ) {
+			m_screen->OnUpdate( dt );
+			this->m_window->clear( sf::Color::Black );
+			m_screen->OnDraw();
+			this->m_window->display();
+		}
+	
 	}
 }
 

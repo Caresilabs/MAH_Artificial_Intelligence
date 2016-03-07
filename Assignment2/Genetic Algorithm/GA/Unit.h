@@ -23,22 +23,37 @@ public:
 
 	void	Won();
 
+	void	SetColor( const sf::Color& color );
+
 	float	FitnessFunction() const;
 
 	int		GetId() const;
 
 	bool	IsDead() const;
 
+	float	GetHealth() const;
+
+	float	GetVelocity() const;
+
+	float	GetAngle() const;
+
 	const RSprite& GetSprite() const;
 
+	// Attributes
+	float	GetMaxHealth() const;
+	float	GetSpeed() const;
+	float	GetFirerate() const;
+
 private:
-	static const int BULLET_SPEED = 50;
+	static const int BULLET_SPEED = 12;
 
 	RSprite		Sprite;
 
 	GAScreen*	World;
 
-	sf::Vector2f Velocity;
+	// Angular Velocity
+	float		Velocity;
+	float		Angle;
 
 	// info
 	int			Id;
@@ -47,8 +62,9 @@ private:
 	sf::Clock	FirerateClock;
 	int			Wins;
 
-	// Attributes
+	
 
+	// Attributes
 	float	Speed;
 	float	Strength;
 

@@ -126,12 +126,15 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GAScreen.cpp" />
+    <ClCompile Include="GenerationLogger.cpp" />
+    <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="GAScreen.h" />
+    <ClInclude Include="GenerationLogger.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="Unit.h" />
   </ItemGroup>

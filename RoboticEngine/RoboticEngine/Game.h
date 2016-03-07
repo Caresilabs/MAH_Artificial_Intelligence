@@ -20,6 +20,8 @@ public:
 
 	virtual ~Game();
 
+	int UpdatesPerFrame;
+
 private:
 	sf::RenderWindow* m_window;
 

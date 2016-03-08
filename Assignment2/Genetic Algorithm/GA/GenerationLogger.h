@@ -4,9 +4,10 @@
 
 class GenerationLogger {
 public:
+	
 	GenerationLogger() = default;
 
-	void Log(const std::vector<Unit*>& generation);
+	void			Log( const std::vector<Unit*>& Generation );
 
 };
 

@@ -19,6 +19,8 @@ public:
 
 	void	Damage( Bullet* bullet );
 
+	void	AddDamageDealt( float Damage );
+
 	void	Reset();
 
 	void	Won();
@@ -43,6 +45,9 @@ public:
 	float	GetMaxHealth() const;
 	float	GetSpeed() const;
 	float	GetFirerate() const;
+	float	GetFireError() const;
+	float	GetStrength() const;
+	float	GetSize() const;
 
 private:
 	static const int BULLET_SPEED = 12;
@@ -61,6 +66,7 @@ private:
 	float		TotalTimeAlive;
 	sf::Clock	FirerateClock;
 	int			Wins;
+	float		DamageDealt;
 
 	
 

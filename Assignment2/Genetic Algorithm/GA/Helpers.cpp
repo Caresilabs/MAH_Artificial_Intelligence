@@ -55,19 +55,9 @@ int GetRandomNumber( int min, int max, bool seed ) {
 	return number;
 }
 
-float GetRandomNumber( float min, float max, bool seed ) {
-	float number;
-
-	if ( seed )
+float GetRandomNumber( float Min, float Max, bool Seed ) {
+	if ( Seed )
 		srand( (unsigned)time( NULL ) );
 
-	number = (((fmod(abs( rand() ) , (max - min + 1)) + min)));
-
-	if ( number > max )
-		number = max;
-
-	if ( number < min )
-		number = min;
-
-	return number;
+	return ((float( rand() ) / float( RAND_MAX )) * (Max - Min)) + Min;
 }

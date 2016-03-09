@@ -22,13 +22,10 @@ public:
 private:
 
 	Unit*					Owner;
-
 	RSprite					Sprite;
-
 	sf::Vector2f			Direction;
 
 	float					Speed;
-
 	float					Strength;
 };
 

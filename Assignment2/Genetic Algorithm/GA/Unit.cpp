@@ -1,5 +1,4 @@
 #include "Unit.h"
-
 #include "GAScreen.h"
 #include "Bullet.h"
 #include "Helpers.h"
@@ -11,7 +10,7 @@ Unit::Unit( GAScreen* world, int id, sf::Texture & texture ) : Id( id ), Dead( f
 void Unit::Set( float health, float speed, float firerate ) {
 	MaxHealth = health;
 	Health = MaxHealth;
-	Size = 0.10 + Health * 0.008f;
+	Size = 0.09 + Health * 0.007f;
 	Sprite.SetSize( Size, Size, true );
 
 	Speed = speed;

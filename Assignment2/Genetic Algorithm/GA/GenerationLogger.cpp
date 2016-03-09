@@ -32,3 +32,28 @@ void GenerationLogger::Log( const std::vector<Unit*>& Generation ) {
 	File << "Health: " << std::to_string( Generation[0]->GetMaxHealth() ) << ", Speed: " << std::to_string( Generation[0]->GetSpeed() ) << ", Firerate: " << std::to_string( Generation[0]->GetFirerate() ) << std::endl;
 	File.close();
 }
+
+void GenerationLogger::ResetAll() {
+
+	std::ofstream File;
+
+	File.open( "Logs/Median.txt" );
+	File << "";
+	File.close();
+
+	File.open( "Logs/Average.txt" );
+	File << "";
+	File.close();
+
+	File.open( "Logs/Best.txt" );
+	File << "";
+	File.close();
+
+	File.open( "Logs/Worst.txt" );
+	File << "";
+	File.close();
+
+	File.open( "Logs/StatsBest.txt" );
+	File << "";
+	File.close();
+}

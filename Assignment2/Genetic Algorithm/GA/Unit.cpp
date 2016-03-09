@@ -11,14 +11,14 @@ Unit::Unit( GAScreen* world, int id, sf::Texture & texture ) : Id( id ), Dead( f
 void Unit::Set( float health, float speed, float firerate ) {
 	MaxHealth = health;
 	Health = MaxHealth;
-	Size = 0.15 + Health * 0.005f;
+	Size = 0.10 + Health * 0.008f;
 	Sprite.SetSize( Size, Size, true );
 
 	Speed = speed;
-	Strength = 1.f + Speed * 15.f;
+	Strength = 1.f +  15.f / (Speed + 1);
 
 	Firerate = firerate;
-	FireError = Firerate *  0.0174533 * 4.0f;
+	FireError = Firerate *  0.0174533 * 4.5f; // Error in Radians 
 
 	Angle = Id;
 	Wins = 0;
@@ -68,7 +68,7 @@ void Unit::Update( const Unit* enemy, float delta ) {
 	//  Keep enemies apart from each other
 	float len = Length( (enemy->GetSprite().getPosition() - Sprite.getPosition()) );
 	if ( len < 4 && abs( enemy->Velocity ) > 0.1f )
-		NewVelocity += -(Speed * 200 * Sign(NormalizeAngle( enemy->Angle - Angle ))) / len;
+		NewVelocity += -(Speed * 200 * Sign( NormalizeAngle( enemy->Angle - Angle ) )) / len;
 
 	Velocity = NewVelocity;
 
@@ -113,7 +113,7 @@ void Unit::ResetFitnessData() {
 }
 
 float Unit::FitnessFunction() const {
-	return TotalTimeAlive + ( 20 * Wins ) + ( DamageDealt * 0.1f );
+	return TotalTimeAlive + (20 * Wins) + (DamageDealt * 0.1f);
 }
 
 int Unit::GetId() const {

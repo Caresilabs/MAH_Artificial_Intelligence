@@ -213,6 +213,9 @@ void GAScreen::OnEvent( const sf::Event & event ) {
 		if ( event.key.code == sf::Keyboard::Space )
 			Paused = !Paused;
 
+		if ( event.key.code == sf::Keyboard::Q )
+			Logger.ResetAll();
+
 		if ( event.key.code == sf::Keyboard::Num1 )
 			game->UpdatesPerFrame = 1;
 		if ( event.key.code == sf::Keyboard::Num2 )

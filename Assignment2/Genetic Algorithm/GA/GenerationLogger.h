@@ -9,5 +9,7 @@ public:
 
 	void			Log( const std::vector<Unit*>& Generation );
 
+	void			ResetAll();
+
 };
 

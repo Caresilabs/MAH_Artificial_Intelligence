@@ -5,7 +5,7 @@
 
 class Bullet {
 public:
-	Bullet(Unit* owner, sf::Texture texture, sf::Vector2f direction, float speed, float strength);
+							Bullet(Unit* owner, sf::Texture texture, sf::Vector2f direction, float speed, float strength);
 
 	void					Update( float delta );
 	
@@ -21,14 +21,14 @@ public:
 
 private:
 
-	Unit*			Owner;
+	Unit*					Owner;
 
-	RSprite			Sprite;
+	RSprite					Sprite;
 
-	sf::Vector2f	Direction;
+	sf::Vector2f			Direction;
 
-	float			Speed;
+	float					Speed;
 
-	float			Strength;
+	float					Strength;
 };
 

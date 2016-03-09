@@ -16,10 +16,12 @@
 
 class GAScreen : public Screen {
 public:
-	GAScreen();
+									GAScreen();
 
 	virtual void					OnCreate() override;
+
 	void							InitRandomPopulation();
+
 	virtual void					OnUpdate( float delta ) override;
 	virtual void					OnDraw() override;
 	virtual void					OnEvent( const sf::Event & event ) override;
@@ -29,34 +31,35 @@ public:
 
 	void							ClearBullets();
 
-	~GAScreen();
+									~GAScreen();
 
 	enum class GAState {
 		PRE, SIMULATING, POST
 	};
 
 private:
-	void						Breed();
-	void						Mutate( float Chance );
+	void							Breed();
+	void							Mutate( float Chance );
 
-	static const unsigned int	POPULATION_SIZE = 4;
-	static const unsigned int	GENERATION_COUNT = 1000;
-	static const unsigned int	UPDATES_PER_FRAME = 1;
+	static const unsigned int		POPULATION_SIZE = 10;
+	static const unsigned int		GENERATION_COUNT = 1000;
+	static const unsigned int		UPDATES_PER_FRAME = 1;
 
-	GAState						State;
-	GenerationLogger			Logger;
+	GAState							State;
+	GenerationLogger				Logger;
 
-	std::vector<Unit*>			Population;
-	std::vector<Bullet*>		Bullets;
+	std::vector<Unit*>				Population;
+	std::vector<Bullet*>			Bullets;
 
-	int							UnitIndex1;
-	int							UnitIndex2;
+	int								UnitIndex1;
+	int								UnitIndex2;
 
-	bool						Paused;
+	int								Generation;
+
+	bool							Paused;
 
 	// Assets
-	sf::Texture					UnitTexture;
-	sf::Texture					BulletTexture;
-	sf::Font					Font;
+	sf::Texture						UnitTexture;
+	sf::Font						Font;
 };
 

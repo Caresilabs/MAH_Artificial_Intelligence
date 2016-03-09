@@ -27,6 +27,8 @@ public:
 
 	void	SetColor( const sf::Color& color );
 
+	void	ResetFitnessData();
+
 	float	FitnessFunction() const;
 
 	int		GetId() const;
@@ -64,7 +66,7 @@ private:
 	int			Id;
 	bool		Dead;
 	float		TotalTimeAlive;
-	sf::Clock	FirerateClock;
+	float		FirerateTime;
 	int			Wins;
 	float		DamageDealt;
 

@@ -1,0 +1,2 @@
+Health: 75.000000, Speed: 0.310251, Firerate: 2.424107
+Health: 71.000000, Speed: 0.310251, Firerate: 2.424107

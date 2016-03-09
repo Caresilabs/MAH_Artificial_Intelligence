@@ -4,7 +4,7 @@
 
 int main() {
 
-	Game game( "Hello World", 1280, 720, new GAScreen() );
+	Game game( "Arena - Genetic Algorithm", 1280, 720, new GAScreen() );
 
 	game.GameLoop();
 

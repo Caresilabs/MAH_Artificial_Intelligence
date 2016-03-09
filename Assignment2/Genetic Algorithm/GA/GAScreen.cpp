@@ -5,17 +5,15 @@
 #include <iostream>
 #include "Helpers.h"
 
-GAScreen::GAScreen() : State( GAState::PRE ), Population( POPULATION_SIZE ), Paused( false ) {
+GAScreen::GAScreen() : State( GAState::PRE ), Population( POPULATION_SIZE ), Paused( false ), Generation(1) {
 }
-
 
 void GAScreen::OnCreate() {
 	game->UpdatesPerFrame = UPDATES_PER_FRAME;
 
 	// Load assets
-	BulletTexture.loadFromFile( "wheeljoy.png" );
-	UnitTexture.loadFromFile( "player.png" );
-	Font.loadFromFile( "Roboto.ttf" );
+	UnitTexture.loadFromFile( "Assets/player.png" );
+	Font.loadFromFile( "Assets/Roboto.ttf" );
 
 	// Seed
 	GetRandomNumber( 0, 100, true );
@@ -27,10 +25,9 @@ void GAScreen::OnCreate() {
 void GAScreen::InitRandomPopulation() {
 	for ( int i = 0; i < POPULATION_SIZE; i++ ) {
 		Population[i] = new Unit( this, i, UnitTexture );
-		Population[i]->Set( GetRandomNumber( HEALTH_MIN, HEALTH_MAX ), GetRandomNumber(SPEED_MIN, SPEED_MAX ), GetRandomNumber( FIRERATE_MIN, FIRERATE_MAX ) );
+		Population[i]->Set( GetRandomNumber( HEALTH_MIN, HEALTH_MAX ), GetRandomNumber( SPEED_MIN, SPEED_MAX ), GetRandomNumber( FIRERATE_MIN, FIRERATE_MAX ) );
 	}
 }
-
 
 void GAScreen::OnUpdate( float delta ) {
 
@@ -43,11 +40,17 @@ void GAScreen::OnUpdate( float delta ) {
 		Unit* unit1 = Population[UnitIndex1];
 		Unit* unit2 = Population[UnitIndex2];
 
-		unit1->Reset();
-		unit2->Reset();
-
+		// Set Color
 		unit1->SetColor( sf::Color::Green );
 		unit2->SetColor( sf::Color::Red );
+
+		// Reset Fitness data of all units
+		for ( int i = 0; i < POPULATION_SIZE; i++ ) {
+			Population[i]->ResetFitnessData();
+		}
+
+		unit1->Reset();
+		unit2->Reset();
 
 		State = GAState::SIMULATING;
 		break;
@@ -60,9 +63,11 @@ void GAScreen::OnUpdate( float delta ) {
 		Unit* unit1 = Population[UnitIndex1];
 		Unit* unit2 = Population[UnitIndex2];
 
+		// Update units
 		unit1->Update( unit2, delta );
 		unit2->Update( unit1, delta );
 
+		// Update Bullets
 		for ( int i = 0; i < Bullets.size();) {
 			Bullet* bullet = Bullets[i];
 
@@ -75,12 +80,10 @@ void GAScreen::OnUpdate( float delta ) {
 
 			if ( bullet->GetOwner() != unit1 && unit1->GetSprite().getGlobalBounds().intersects( bullet->GetSprite().getGlobalBounds() ) ) {
 				unit1->Damage( bullet );
-				//DeadBullets.push_back( i );
 				Bullets.erase( Bullets.begin() + i );
 				delete bullet;
 			} else if ( bullet->GetOwner() != unit2 && unit2->GetSprite().getGlobalBounds().intersects( bullet->GetSprite().getGlobalBounds() ) ) {
 				unit2->Damage( bullet );
-				//DeadBullets.push_back( i );
 				Bullets.erase( Bullets.begin() + i );
 				delete bullet;
 			} else {
@@ -88,7 +91,9 @@ void GAScreen::OnUpdate( float delta ) {
 			}
 		}
 
+		// Fight is over
 		if ( unit1->IsDead() || unit2->IsDead() ) {
+			// Who won? 
 			if ( unit1->IsDead() )
 				unit2->Won();
 
@@ -97,21 +102,27 @@ void GAScreen::OnUpdate( float delta ) {
 
 			//  New battle
 			++UnitIndex2;
+
+			// Don't fight yourself
 			if ( UnitIndex1 == UnitIndex2 )
 				++UnitIndex2;
 
+			// If we fought all other units, then I'm done
 			if ( UnitIndex2 >= POPULATION_SIZE ) {
 				++UnitIndex1;
 				UnitIndex2 = 0;
 
-				if ( UnitIndex1 == UnitIndex2 )
+				// Don't fight yourself
+				if ( UnitIndex1 == UnitIndex2 ) 
 					++UnitIndex2;
 
+				// Generation is done
 				if ( UnitIndex1 >= POPULATION_SIZE ) {
 					State = GAState::POST;
 					break;
 				}
 			}
+
 			// Reset Sim
 			Population[UnitIndex1]->Reset();
 			Population[UnitIndex2]->Reset();
@@ -134,7 +145,9 @@ void GAScreen::OnUpdate( float delta ) {
 		Logger.Log( Population );
 
 		Breed();
-		Mutate(0.1f);
+		Mutate( 0.1f );
+
+		++Generation;
 
 		State = GAState::PRE;
 		break;
@@ -184,6 +197,8 @@ void GAScreen::OnDraw() {
 			+ "\nFirerate: " + std::to_string( unit2->GetFirerate() )
 			+ "\nFireError: " + std::to_string( unit2->GetFireError() ) );
 
+		txt.append("\n\nGeneration: "  + std::to_string( Generation ) );
+
 		text.setString( txt );
 		text.setCharacterSize( 24 );
 		text.setScale( 0.01f, 0.01f );
@@ -203,19 +218,21 @@ void GAScreen::OnEvent( const sf::Event & event ) {
 		if ( event.key.code == sf::Keyboard::Num2 )
 			game->UpdatesPerFrame = 2;
 		if ( event.key.code == sf::Keyboard::Num3 )
-			game->UpdatesPerFrame = 3;
-		if ( event.key.code == sf::Keyboard::Num4 )
 			game->UpdatesPerFrame = 4;
-		if ( event.key.code == sf::Keyboard::Num5 )
-			game->UpdatesPerFrame = 5;
-		if ( event.key.code == sf::Keyboard::Num6 )
+		if ( event.key.code == sf::Keyboard::Num4 )
 			game->UpdatesPerFrame = 6;
-		if ( event.key.code == sf::Keyboard::Num7 )
-			game->UpdatesPerFrame = 7;
-		if ( event.key.code == sf::Keyboard::Num8 )
+		if ( event.key.code == sf::Keyboard::Num5 )
 			game->UpdatesPerFrame = 8;
+		if ( event.key.code == sf::Keyboard::Num6 )
+			game->UpdatesPerFrame = 10;
+		if ( event.key.code == sf::Keyboard::Num7 )
+			game->UpdatesPerFrame = 12;
+		if ( event.key.code == sf::Keyboard::Num8 )
+			game->UpdatesPerFrame = 14;
 		if ( event.key.code == sf::Keyboard::Num9 )
-			game->UpdatesPerFrame = 9;
+			game->UpdatesPerFrame = 16;
+		if ( event.key.code == sf::Keyboard::Num0 )
+			game->UpdatesPerFrame = 32;
 	}
 
 }
@@ -250,10 +267,7 @@ GAScreen::~GAScreen() {
 	ClearBullets();
 }
 
-// TODO breed twice
-// TODO crash here
 void GAScreen::Breed() {
-
 	int ToBreed = Population.size() * 0.5f;
 
 	for ( int i = 0; i < ToBreed; i += 2 ) {
@@ -262,26 +276,35 @@ void GAScreen::Breed() {
 		float Speed = 0;
 		float Firerate = 0;
 
-		// Mom and Dad
-		Health = Population[GetRandomNumber( i, i + 1 )]->GetMaxHealth();
-		Speed = Population[GetRandomNumber( i, i + 1 )]->GetSpeed();
-		Firerate = Population[GetRandomNumber( i, i + 1 )]->GetFirerate();
+		for ( int x = 0; x < 2; x++ ) {
+			int HealthIndex = GetRandomNumber( i, i + 1 );
+			int SpeedIndex = GetRandomNumber( i, i + 1 );
+			int FirerateIndex = GetRandomNumber( i, i + 1 );
 
-		int Id = Population.size() - i - 1;
-		Unit* Breed = new Unit(this, Id, UnitTexture);
-		Breed->Set( Health, Speed, Firerate );
+			Health = Population[HealthIndex]->GetMaxHealth();
+			Speed = Population[SpeedIndex]->GetSpeed();
+			Firerate = Population[FirerateIndex]->GetFirerate();
 
-		delete Population[Id];
+ 			int Id = Population.size() - i - 1 - x;
+			Unit* Breed = new Unit( this, Id, UnitTexture );
+			Breed->Set( Health, Speed, Firerate );
 
-		Population[Id] = Breed;
+			delete Population[Id];
+
+			Population[Id] = Breed;
+		}
 	}
-
 }
 
 void GAScreen::Mutate( float Chance ) {
 	for each (auto Unit in Population) {
 		if ( GetRandomNumber( 0.f, 1.f ) < Chance ) {
 
+			float Health = Clamp( Unit->GetMaxHealth() + GetRandomNumber( -20, 20 ), HEALTH_MIN, HEALTH_MAX );
+			float Speed = Clamp( Unit->GetSpeed() + GetRandomNumber( -0.2f, 0.2f ), SPEED_MIN, SPEED_MAX );
+			float Firerate = Clamp( Unit->GetFirerate() + GetRandomNumber( -0.7f, 0.7f ), FIRERATE_MIN, FIRERATE_MAX );
+
+			Unit->Set( Health, Speed, Firerate );
 		}
 	}
 

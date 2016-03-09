@@ -33,8 +33,9 @@ void Unit::Update( const Unit* enemy, float delta ) {
 
 	Sprite.setPosition( 8 + cos( Angle )*5.f, 4.5f + sin( Angle )*3.5f );
 
-	if ( FirerateClock.getElapsedTime().asSeconds() >= (1 / Firerate) ) {
-		FirerateClock.restart();
+	if ( (FirerateTime += delta) >= (1 / Firerate) ) {
+		// Reset clock
+		FirerateTime = 0;
 
 		float len = Length( (enemy->GetSprite().getPosition() - Sprite.getPosition()) );
 
@@ -58,18 +59,16 @@ void Unit::Update( const Unit* enemy, float delta ) {
 		float dot = Dot( bullet->GetDirection(), (Sprite.getPosition() - bullet->GetSprite().getPosition()) );
 		float det = Det( bullet->GetDirection(), (Sprite.getPosition() - bullet->GetSprite().getPosition()) );
 
+		// Angle between bullet direction and bulletposition-mypostion vector.
 		float myangle = NormalizeAngle( atan2( det, dot ) );
 
-		if ( myangle < 0 )
-			int i = 1;
-
-		NewVelocity += (myangle * 50) / len;
+		NewVelocity += (myangle * 40) / len;
 
 	}
-	//  keep enemies apart from each other
+	//  Keep enemies apart from each other
 	float len = Length( (enemy->GetSprite().getPosition() - Sprite.getPosition()) );
-	if ( len < 6 && abs(enemy->Velocity) > 0.1f )
-		NewVelocity += (Speed * NormalizeAngle(enemy->Angle - Angle)); // /len
+	if ( len < 4 && abs( enemy->Velocity ) > 0.1f )
+		NewVelocity += -(Speed * 200 * Sign(NormalizeAngle( enemy->Angle - Angle ))) / len;
 
 	Velocity = NewVelocity;
 
@@ -105,6 +104,12 @@ void Unit::Won() {
 
 void Unit::SetColor( const sf::Color & color ) {
 	Sprite.setColor( color );
+}
+
+void Unit::ResetFitnessData() {
+	TotalTimeAlive = 0;
+	DamageDealt = 0;
+	Wins = 0;
 }
 
 float Unit::FitnessFunction() const {

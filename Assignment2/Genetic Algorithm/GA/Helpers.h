@@ -17,3 +17,5 @@ float				NormalizeAngle( float x );
 int					GetRandomNumber( int min, int max, bool seed = false );
 
 float				GetRandomNumber( float min, float max, bool seed = false );
+
+int					Sign( float x );

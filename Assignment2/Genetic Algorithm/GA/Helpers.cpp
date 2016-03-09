@@ -61,3 +61,7 @@ float GetRandomNumber( float Min, float Max, bool Seed ) {
 
 	return ((float( rand() ) / float( RAND_MAX )) * (Max - Min)) + Min;
 }
+
+int Sign( float x ) {
+	return (x < 0) ? -1 : (x > 0);
+}

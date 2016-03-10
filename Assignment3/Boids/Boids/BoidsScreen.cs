@@ -35,7 +35,7 @@ namespace Boids
                 int deltaScroll = Mouse.GetState().ScrollWheelValue - lastScrollWheel;
                 lastScrollWheel = Mouse.GetState().ScrollWheelValue;
 
-                int toChange = deltaScroll / 20;
+                int toChange = deltaScroll / 30;
 
                 if (toChange > 0)
                 {

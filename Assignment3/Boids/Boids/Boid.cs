@@ -6,9 +6,8 @@ namespace Boids
     public class Boid
     {
         public const int MAX_SPEED = 100;
-        //public const int RADIUS = 32 * 3;
 
-        public const float SEPARATION_WEIGHT = 14.5f;
+        public const float SEPARATION_WEIGHT = 12.5f;
         public const float COHESION_WEIGHT = 2;
         public const float ALIGNMENT_WEIGHT = 2f;
 
@@ -84,11 +83,11 @@ namespace Boids
             MaxSpeed();
         }
 
-        public void Pursuit(Vector2 pos)
+        public void Pursuit(Vector2 pos, Vector2 vel)
         {
             var dst = pos - position;
-            //float dst.Length() / MAX_SPEED;
-            var futurePosition = pos;
+            float time = dst.Length() / MAX_SPEED;
+            var futurePosition = pos + time * velocity;
             Seek(futurePosition);
             MaxSpeed();
         }

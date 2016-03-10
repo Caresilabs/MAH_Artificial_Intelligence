@@ -65,7 +65,7 @@ namespace Boids
 
             foreach (var interest in Interests)
             {
-
+                interest.Update(delta);
             }
         }
     }

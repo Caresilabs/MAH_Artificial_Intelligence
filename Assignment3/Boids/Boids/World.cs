@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Simon.Mah.Framework;
-using System;
 using System.Collections.Generic;
 
 namespace Boids

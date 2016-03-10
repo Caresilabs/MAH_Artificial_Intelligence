@@ -110,10 +110,9 @@ namespace Boids
             }
 
             // Draw ui
+            batch.DrawString(Game1.FONT, String.Format("Num: {0}", World.Boids.Count), new Vector2(), Color.WhiteSmoke);
 
-            batch.DrawString(Game1.FONT, String.Format("Num: {0}", World.Boids.Count), new Vector2(), Color.PaleVioletRed);
-
-            batch.DrawString(Game1.FONT, currentType.ToString(), Camera.Unproject(Mouse.GetState().X, Mouse.GetState().Y) + new Vector2(10, - 16), Color.PaleVioletRed);
+            batch.DrawString(Game1.FONT, currentType.ToString(), Camera.Unproject(Mouse.GetState().X, Mouse.GetState().Y) + new Vector2(10, - 16), Interest.GetColorFromType(currentType));
 
             batch.End();
         }

@@ -1,5 +1,4 @@
-﻿
-using Boids;
+﻿using Boids;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

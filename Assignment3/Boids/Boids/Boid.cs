@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Boids
 {
@@ -40,10 +36,9 @@ namespace Boids
         public void Update(float delta)
         {
             // Cap speed
-            if (velocity.Length() > MAX_SPEED)
+            //if (velocity.Length() > MAX_SPEED)
             {
-                velocity.Normalize();
-                velocity *= MAX_SPEED;
+                //CapSpeed();
             }
 
             // Add position
@@ -57,15 +52,37 @@ namespace Boids
             var cohesion = CalcCohesion();
             var separation = CalcSeparation();
 
-            velocity += (alignment * ALIGNMENT_WEIGHT) + (cohesion * COHESION_WEIGHT) + (separation * SEPARATION_WEIGHT);
+            var flock = (alignment * ALIGNMENT_WEIGHT) + (cohesion * COHESION_WEIGHT) + (separation * SEPARATION_WEIGHT);
+            if (flock != Vector2.Zero)
+            {
+                velocity += flock;
+                CapSpeed();
+            }
         }
 
-        //      public function pursuit(t :Boid) :Vector3D {
-        //var distance :Vector3D = t.position - position;
-        //var T :int = distance.length / MAX_VELOCITY;
-        //futurePosition :Vector3D = t.position + t.velocity* T;
-        //return seek(futurePosition);
-        //  }
+        private void CapSpeed()
+        {
+            if (velocity == Vector2.Zero || velocity.Length() <= MAX_SPEED)
+                return;
+
+            velocity.Normalize();
+            velocity *= MAX_SPEED;
+        }
+
+        private void MaxSpeed()
+        {
+            velocity.Normalize();
+            velocity *= MAX_SPEED;
+        }
+
+        public void Wander(Vector2 pos)
+        {
+            var desiredVelocity = (pos - position);
+            desiredVelocity.Normalize();
+            desiredVelocity *= MAX_SPEED;
+            velocity += (desiredVelocity - velocity) * 0.1f;
+            MaxSpeed();
+        }
 
         public void Pursuit(Vector2 pos)
         {
@@ -73,12 +90,7 @@ namespace Boids
             //float dst.Length() / MAX_SPEED;
             var futurePosition = pos;
             Seek(futurePosition);
-        }
-
-       
-        public void Wander(Vector2 pos, float radius)
-        {
-           
+            MaxSpeed();
         }
 
         public void Arrive(Vector2 pos, float arriveRadius)
@@ -105,7 +117,8 @@ namespace Boids
             var desiredVelocity = (position - pos);
             desiredVelocity.Normalize();
             desiredVelocity *= MAX_SPEED;
-            velocity += desiredVelocity - velocity;
+            velocity += (desiredVelocity - velocity) * 0.2f;
+            MaxSpeed();
         }
 
         public void Seek(Vector2 pos)
@@ -113,7 +126,8 @@ namespace Boids
             var desiredVelocity = (pos - position);
             desiredVelocity.Normalize();
             desiredVelocity *= MAX_SPEED;
-            velocity += desiredVelocity - velocity;
+            velocity += (desiredVelocity - velocity) * 0.14f;
+            MaxSpeed();
         }
 
         public Vector2 CalcAlignment()

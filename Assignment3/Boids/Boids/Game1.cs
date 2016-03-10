@@ -9,13 +9,28 @@ namespace Boids
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public static Texture2D BOID_TEXTURE;
+        public static Texture2D RECT_TEXTURE;
+        public static SpriteFont FONT;
+
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private BoidsScreen screen;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferMultiSampling = true;
+
+            IsMouseVisible = true;
+
+            Window.AllowUserResizing = true;
+
+            screen = new BoidsScreen();
         }
 
         /// <summary>
@@ -26,8 +41,6 @@ namespace Boids
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -40,7 +53,11 @@ namespace Boids
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            BOID_TEXTURE = Content.Load<Texture2D>("boid");
+            RECT_TEXTURE = Content.Load<Texture2D>("rect");
+            FONT = Content.Load<SpriteFont>("font");
+
+            screen.OnCreate(GraphicsDevice);
         }
 
         /// <summary>
@@ -49,7 +66,6 @@ namespace Boids
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -62,7 +78,7 @@ namespace Boids
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            screen.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
             base.Update(gameTime);
         }
@@ -73,9 +89,9 @@ namespace Boids
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            screen.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }

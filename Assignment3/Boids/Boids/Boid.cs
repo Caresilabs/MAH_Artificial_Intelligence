@@ -7,9 +7,9 @@ namespace Boids
     {
         public const int MAX_SPEED = 100;
 
-        public const float SEPARATION_WEIGHT = 12.5f;
-        public const float COHESION_WEIGHT = 2;
-        public const float ALIGNMENT_WEIGHT = 2f;
+        public const float SEPARATION_WEIGHT = 10.5f;
+        public const float COHESION_WEIGHT = 0.8f;
+        public const float ALIGNMENT_WEIGHT = 1.2f;
 
         public const float RADIUS = 11;
 
@@ -197,7 +197,7 @@ namespace Boids
 
                 if (Distance(position, boid.position) < 40)
                 {
-                    v += boid.position - position;
+                    v += (boid.position - position) * 0.5f;
                     ++NeighborCount;
                 }
             }

@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "Helpers.h"
+#include <math.h>
 
 GAScreen::GAScreen() : State( GAState::PRE ), Population( POPULATION_SIZE ), Paused( false ), Generation(1) {
 }
@@ -185,7 +186,7 @@ void GAScreen::OnDraw() {
 			+ "\nSpeed: " + std::to_string( unit1->GetSpeed() )
 			+ "\nStrength: " + std::to_string( unit1->GetStrength() )
 			+ "\nFirerate: " + std::to_string( unit1->GetFirerate() )
-			+ "\nFireError: " + std::to_string( unit1->GetFireError() )
+			+ "\nFireError: " + std::to_string( unit1->GetFireError() * (180 / MY_PI) ) + " Degrees"
 			;
 
 		txt.append( "\n\n(Red) Id:" + std::to_string( UnitIndex2 )
@@ -195,7 +196,8 @@ void GAScreen::OnDraw() {
 			+ "\nSpeed: " + std::to_string( unit2->GetSpeed() )
 			+ "\nStrength: " + std::to_string( unit2->GetStrength() )
 			+ "\nFirerate: " + std::to_string( unit2->GetFirerate() )
-			+ "\nFireError: " + std::to_string( unit2->GetFireError() ) );
+			+ "\nFireError: " + std::to_string( unit2->GetFireError() * (180 / MY_PI) ) + " Degrees"
+			);
 
 		txt.append("\n\nGeneration: "  + std::to_string( Generation ) );
 
@@ -207,7 +209,7 @@ void GAScreen::OnDraw() {
 	}
 }
 
-void GAScreen::OnEvent( const sf::Event & event ) {
+void GAScreen::OnEvent( const sf::Event& event ) {
 
 	if ( event.type == event.KeyReleased ) {
 		if ( event.key.code == sf::Keyboard::Space )
@@ -266,11 +268,11 @@ GAScreen::~GAScreen() {
 	for each (auto unit in Population) {
 		delete unit;
 	}
-
 	ClearBullets();
 }
 
 void GAScreen::Breed() {
+	// Breed half of population
 	int ToBreed = Population.size() * 0.5f;
 
 	for ( int i = 0; i < ToBreed; i += 2 ) {
@@ -303,9 +305,9 @@ void GAScreen::Mutate( float Chance ) {
 	for each (auto Unit in Population) {
 		if ( GetRandomNumber( 0.f, 1.f ) < Chance ) {
 
-			float Health = Clamp( Unit->GetMaxHealth() + GetRandomNumber( -20, 20 ), HEALTH_MIN, HEALTH_MAX );
-			float Speed = Clamp( Unit->GetSpeed() + GetRandomNumber( -0.2f, 0.2f ), SPEED_MIN, SPEED_MAX );
-			float Firerate = Clamp( Unit->GetFirerate() + GetRandomNumber( -0.7f, 0.7f ), FIRERATE_MIN, FIRERATE_MAX );
+			float Health = Clamp( Unit->GetMaxHealth() + GetRandomNumber( -30, 30 ), HEALTH_MIN, HEALTH_MAX );
+			float Speed = Clamp( Unit->GetSpeed() + GetRandomNumber( -0.3f, 0.3f ), SPEED_MIN, SPEED_MAX );
+			float Firerate = Clamp( Unit->GetFirerate() + GetRandomNumber( -1.2f, 1.2f ), FIRERATE_MIN, FIRERATE_MAX );
 
 			Unit->Set( Health, Speed, Firerate );
 		}

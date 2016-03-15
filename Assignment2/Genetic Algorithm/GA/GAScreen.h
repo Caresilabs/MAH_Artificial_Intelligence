@@ -8,11 +8,11 @@
 #define HEALTH_MIN 50
 #define HEALTH_MAX 250
 
-#define SPEED_MIN 0.2f 
-#define SPEED_MAX 1.1f
+#define SPEED_MIN 0.25f 
+#define SPEED_MAX 1.25f
 
-#define FIRERATE_MIN 0.8f
-#define FIRERATE_MAX 4.5f
+#define FIRERATE_MIN 1.2f
+#define FIRERATE_MAX 4.0f
 
 class GAScreen : public Screen {
 public:
@@ -41,7 +41,7 @@ private:
 	void							Breed();
 	void							Mutate( float Chance );
 
-	static const unsigned int		POPULATION_SIZE = 10;
+	static const unsigned int		POPULATION_SIZE = 100;
 	static const unsigned int		GENERATION_COUNT = 1000;
 	static const unsigned int		UPDATES_PER_FRAME = 1;
 

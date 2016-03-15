@@ -2,6 +2,8 @@
 
 #include <SFML/System/Vector2.hpp>
 
+extern float MY_PI;
+
 sf::Vector2f		Normalize( const sf::Vector2f& source );
 
 float				Length( const sf::Vector2f& source );

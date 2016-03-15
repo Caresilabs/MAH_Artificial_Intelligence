@@ -6,6 +6,8 @@
 #include <time.h>
 #include <algorithm>
 
+float MY_PI = M_PI;
+
 sf::Vector2f Normalize( const sf::Vector2f& source ) {
 	float length = sqrt( (source.x * source.x) + (source.y * source.y) );
 	if ( length != 0 )

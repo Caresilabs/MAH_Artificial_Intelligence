@@ -10,14 +10,14 @@ Unit::Unit( GAScreen* world, int id, sf::Texture & texture ) : Id( id ), Dead( f
 void Unit::Set( float health, float speed, float firerate ) {
 	MaxHealth = health;
 	Health = MaxHealth;
-	Size = 0.09 + Health * 0.007f;
+	Size = 0.05 + Health * 0.006f;
 	Sprite.SetSize( Size, Size, true );
 
 	Speed = speed;
-	Strength = 1.f +  15.f / (Speed + 1);
+	Strength = 1.f + 3 * (15.f / ((Speed*3.f) + 1));
 
 	Firerate = firerate;
-	FireError = Firerate *  0.0174533 * 4.5f; // Error in Radians 
+	FireError = (Firerate * Firerate) * 0.0174533 * 1.6f; // Error in Radians 
 
 	Angle = Id;
 	Wins = 0;
@@ -32,13 +32,14 @@ void Unit::Update( const Unit* enemy, float delta ) {
 
 	Sprite.setPosition( 8 + cos( Angle )*5.f, 4.5f + sin( Angle )*3.5f );
 
+	// Shoot
 	if ( (FirerateTime += delta) >= (1 / Firerate) ) {
 		// Reset clock
 		FirerateTime = 0;
 
 		float len = Length( (enemy->GetSprite().getPosition() - Sprite.getPosition()) );
 
-		float EnemyAngle = enemy->Angle + (enemy->Velocity * 0.5f);
+		float EnemyAngle = enemy->Angle + enemy->Velocity * (len / BULLET_SPEED);
 
 		sf::Vector2f Dir( 8 + cos( EnemyAngle )*5.f, 4.5f + sin( EnemyAngle )*3.5f );
 
@@ -61,13 +62,13 @@ void Unit::Update( const Unit* enemy, float delta ) {
 		// Angle between bullet direction and bulletposition-mypostion vector.
 		float myangle = NormalizeAngle( atan2( det, dot ) );
 
-		NewVelocity += (myangle * 40) / len;
+		NewVelocity += (myangle * 20) / len;
 
 	}
 	//  Keep enemies apart from each other
 	float len = Length( (enemy->GetSprite().getPosition() - Sprite.getPosition()) );
-	if ( len < 4 && abs( enemy->Velocity ) > 0.1f )
-		NewVelocity += -(Speed * 200 * Sign( NormalizeAngle( enemy->Angle - Angle ) )) / len;
+	//if ( len < 4 && abs( enemy->Velocity ) > 0.1f )
+		NewVelocity -= 0.3f * ((Speed * 100 * Sign( NormalizeAngle( enemy->Angle - Angle ) )) / len);
 
 	Velocity = NewVelocity;
 
@@ -112,7 +113,7 @@ void Unit::ResetFitnessData() {
 }
 
 float Unit::FitnessFunction() const {
-	return TotalTimeAlive + (20 * Wins) + (DamageDealt * 0.1f);
+	return (TotalTimeAlive) + (DamageDealt * 0.01f) + (20 * Wins);
 }
 
 int Unit::GetId() const {

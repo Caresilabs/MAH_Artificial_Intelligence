@@ -6,7 +6,7 @@
 #include "Helpers.h"
 #include <math.h>
 
-GAScreen::GAScreen() : State( GAState::PRE ), Population( POPULATION_SIZE ), Paused( false ), Generation(1) {
+GAScreen::GAScreen() : State( GAState::PRE ), Population( POPULATION_SIZE ), Paused( false ), Generation( 1 ) {
 }
 
 void GAScreen::OnCreate() {
@@ -105,21 +105,22 @@ void GAScreen::OnUpdate( float delta ) {
 			++UnitIndex2;
 
 			// Don't fight yourself
-			if ( UnitIndex1 == UnitIndex2 )
-				++UnitIndex2;
+			//if ( UnitIndex1 == UnitIndex2 )
+			//	++UnitIndex2;
 
 			// If we fought all other units, then I'm done
 			if ( UnitIndex2 >= POPULATION_SIZE ) {
 				++UnitIndex1;
-				UnitIndex2 = 0;
+				UnitIndex2 = UnitIndex1 + 1; // We start from next
 
 				// Don't fight yourself
-				if ( UnitIndex1 == UnitIndex2 ) 
-					++UnitIndex2;
+				//if ( UnitIndex1 == UnitIndex2 ) 
+				//	++UnitIndex2;
 
 				// Generation is done
-				if ( UnitIndex1 >= POPULATION_SIZE ) {
+				if ( UnitIndex1 + 1 >= POPULATION_SIZE ) {
 					State = GAState::POST;
+					ClearBullets();
 					break;
 				}
 			}
@@ -146,7 +147,7 @@ void GAScreen::OnUpdate( float delta ) {
 		Logger.Log( Population );
 
 		Breed();
-		Mutate( 0.1f );
+		Mutate( 0.25f );
 
 		++Generation;
 
@@ -199,7 +200,7 @@ void GAScreen::OnDraw() {
 			+ "\nFireError: " + std::to_string( unit2->GetFireError() * (180 / MY_PI) ) + " Degrees"
 			);
 
-		txt.append("\n\nGeneration: "  + std::to_string( Generation ) );
+		txt.append( "\n\nGeneration: " + std::to_string( Generation ) );
 
 		text.setString( txt );
 		text.setCharacterSize( 24 );
@@ -237,7 +238,7 @@ void GAScreen::OnEvent( const sf::Event& event ) {
 		if ( event.key.code == sf::Keyboard::Num9 )
 			game->UpdatesPerFrame = 16;
 		if ( event.key.code == sf::Keyboard::Num0 )
-			game->UpdatesPerFrame = 32;
+			game->UpdatesPerFrame = 200;
 	}
 
 }
@@ -281,7 +282,7 @@ void GAScreen::Breed() {
 		float Speed = 0;
 		float Firerate = 0;
 
-		for ( int x = 0; x < 2; x++ ) {
+		for ( int x = 0; x < 1; x++ ) { // TODO maybe change to two?
 			int HealthIndex = GetRandomNumber( i, i + 1 );
 			int SpeedIndex = GetRandomNumber( i, i + 1 );
 			int FirerateIndex = GetRandomNumber( i, i + 1 );
@@ -290,7 +291,7 @@ void GAScreen::Breed() {
 			Speed = Population[SpeedIndex]->GetSpeed();
 			Firerate = Population[FirerateIndex]->GetFirerate();
 
- 			int Id = Population.size() - i - 1 - x;
+			int Id = Population.size() - i - 1 - x;
 			Unit* Breed = new Unit( this, Id, UnitTexture );
 			Breed->Set( Health, Speed, Firerate );
 
@@ -303,11 +304,20 @@ void GAScreen::Breed() {
 
 void GAScreen::Mutate( float Chance ) {
 	for each (auto Unit in Population) {
-		if ( GetRandomNumber( 0.f, 1.f ) < Chance ) {
+		if ( GetRandomNumber( 0.f, 1.f ) <= Chance ) {
 
-			float Health = Clamp( Unit->GetMaxHealth() + GetRandomNumber( -30, 30 ), HEALTH_MIN, HEALTH_MAX );
-			float Speed = Clamp( Unit->GetSpeed() + GetRandomNumber( -0.3f, 0.3f ), SPEED_MIN, SPEED_MAX );
-			float Firerate = Clamp( Unit->GetFirerate() + GetRandomNumber( -1.2f, 1.2f ), FIRERATE_MIN, FIRERATE_MAX );
+			float Health = Unit->GetMaxHealth();
+			float Speed = Unit->GetSpeed();
+			float Firerate = Unit->GetFirerate();
+
+			if (GetRandomNumber(0.f, 1.0f) < 0.6f )
+				Health = Clamp( Unit->GetMaxHealth() + GetRandomNumber( -20, 20 ), HEALTH_MIN, HEALTH_MAX );
+			
+			if ( GetRandomNumber( 0.f, 1.0f ) < 0.6f )
+				Speed = Clamp( Unit->GetSpeed() + GetRandomNumber( -0.25f, 0.25f ), SPEED_MIN, SPEED_MAX );
+
+			if ( GetRandomNumber( 0.f, 1.0f ) < 0.6f )
+				Firerate = Clamp( Unit->GetFirerate() + GetRandomNumber( -.7f, .7f ), FIRERATE_MIN, FIRERATE_MAX );
 
 			Unit->Set( Health, Speed, Firerate );
 		}

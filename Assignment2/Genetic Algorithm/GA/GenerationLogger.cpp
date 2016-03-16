@@ -31,6 +31,10 @@ void GenerationLogger::Log( const std::vector<Unit*>& Generation ) {
 	File.open( "Logs/StatsBest.txt", std::ios_base::app );
 	File << "Health: " << std::to_string( Generation[0]->GetMaxHealth() ) << ", Speed: " << std::to_string( Generation[0]->GetSpeed() ) << ", Firerate: " << std::to_string( Generation[0]->GetFirerate() ) << std::endl;
 	File.close();
+
+	File.open( "Logs/StatsWorst.txt", std::ios_base::app );
+	File << "Health: " << std::to_string( Generation[Generation.size() - 1]->GetMaxHealth() ) << ", Speed: " << std::to_string( Generation[Generation.size() - 1]->GetSpeed() ) << ", Firerate: " << std::to_string( Generation[Generation.size() - 1]->GetFirerate() ) << std::endl;
+	File.close();
 }
 
 void GenerationLogger::ResetAll() {
@@ -54,6 +58,10 @@ void GenerationLogger::ResetAll() {
 	File.close();
 
 	File.open( "Logs/StatsBest.txt" );
+	File << "";
+	File.close();
+
+	File.open( "Logs/StatsWorst.txt" );
 	File << "";
 	File.close();
 }

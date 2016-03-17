@@ -6,7 +6,7 @@
 #include "GenerationLogger.h"
 
 #define HEALTH_MIN 60
-#define HEALTH_MAX 250
+#define HEALTH_MAX 200
 
 #define SPEED_MIN 0.20f 
 #define SPEED_MAX 1.40f
@@ -41,7 +41,7 @@ private:
 	void							Breed();
 	void							Mutate( float Chance );
 
-	static const unsigned int		POPULATION_SIZE = 50;
+	static const unsigned int		POPULATION_SIZE = 60;
 	static const unsigned int		GENERATION_COUNT = 1000;
 	static const unsigned int		UPDATES_PER_FRAME = 1;
 
